@@ -3,10 +3,10 @@ conditions.py -- THE experiment axes: control profiles x policy conditions.
 Single source of truth; live_demo, live_session, and the experiment runner all
 import from here so the strings cannot drift between scripts.
 
-DESIGN (and the small choices, explained):
+DESIGN:
 
 PROFILES: a 2x2 (identity: blind/sighted x assist instruction: absent/present)
-plus a no-prompt control. The assist sentence is IDENTICAL across identities,
+plus a no-prompt control. The assist sentence is same across identities,
 so the design isolates (a) the identity effect, (b) the instruction effect,
 and (c) their interaction. Exact strings fixed at the 7/14 meeting.
 

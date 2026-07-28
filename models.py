@@ -23,7 +23,7 @@ ENV_KEY = {"anthropic": "ANTHROPIC_API_KEY",
            "openai": "OPENAI_API_KEY",
            "google": "GEMINI_API_KEY"}
 
-MAX_TOKENS = 1000          # same ceiling for every model: one less variable
+MAX_TOKENS = 1000 # same ceiling for every model: one less variable
 TIMEOUT = 120.0
 RETRIES = 2
 
@@ -85,9 +85,8 @@ def generate(model_key, system, user):
 
 # utilities
 def list_available():
-    """Ask each provider what this key can actually use. Pin from THIS list."""
     print("=" * 70)
-    print("MODELS AVAILABLE TO YOUR KEYS  (pin exact ids from here)")
+    print("MODELS AVAILABLE TO YOUR KEYS")
     print("=" * 70)
 
     if os.environ.get("ANTHROPIC_API_KEY"):
