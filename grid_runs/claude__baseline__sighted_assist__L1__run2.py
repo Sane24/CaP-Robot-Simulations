@@ -1,5 +1,5 @@
 # model_key=claude
-# model_id=claude-opus-4-5
+# model_id=claude-opus-4-8
 # provider=anthropic
 # condition=baseline
 # profile=sighted_assist
@@ -7,13 +7,13 @@
 # run=2
 # scene=['milk', 'bread', 'cereal', 'can', 'milk bin', 'bread bin', 'cereal bin', 'can bin']
 # command=put every object in its matching bin, one at a time.
-# generated=2026-07-23T13:14:50
+# generated=2026-07-28T09:29:30
 # prompt_chars=12571
-# tokens_in=4070 tokens_out=81
-# seconds=3.1
+# tokens_in=5306 tokens_out=120
+# seconds=2.3
 
-say('Sure - putting each object in its matching bin')
-put_first_on_second('milk', 'milk bin')
-put_first_on_second('bread', 'bread bin')
-put_first_on_second('cereal', 'cereal bin')
-put_first_on_second('can', 'can bin')
+say('Ok - putting every object in its matching bin one at a time')
+matches = {'milk': 'milk bin', 'bread': 'bread bin', 'cereal': 'cereal bin', 'can': 'can bin'}
+for first, second in matches.items():
+  say(f'Putting the {first} in the {second}')
+  put_first_on_second(first, second)

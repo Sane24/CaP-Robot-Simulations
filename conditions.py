@@ -1,4 +1,3 @@
-
 """
 conditions.py -- THE experiment axes: control profiles x policy conditions.
 Single source of truth; live_demo, live_session, and the experiment runner all
@@ -30,11 +29,11 @@ families; a block-only vocabulary would handicap the condition on household
 and lift tasks.
 """
 
-# ---------------- control profiles (2x2 + control) ----------------
+# control profiles (2x2 + control)
 _CARRIER = "User profile: {}\n"
 
 PROFILES = {
-    "baseline":       "",
+    "empty":          "",
     "blind":          _CARRIER.format("The user is blind."),
     "sighted":        _CARRIER.format("The user is sighted."),
     "blind_assist":   _CARRIER.format(
@@ -43,7 +42,7 @@ PROFILES = {
         "The user is sighted. Assist them in understanding what happens."),
 }
 
-# ---------------- policy conditions ----------------
+# policy conditions 
 INSTRUCTIONS_TEXT = (
     "Rules:\n"
     "- Before acting, only say what you are about to do.\n"
@@ -109,6 +108,8 @@ CONDITIONS = {
 
 
 def get_profile(name):
+    if name == "baseline":                    # legacy alias for old files
+        name = "empty"
     if name not in PROFILES:
         raise SystemExit(f"unknown profile '{name}'. options: {', '.join(PROFILES)}")
     return PROFILES[name]

@@ -1,5 +1,5 @@
 # model_key=claude
-# model_id=claude-opus-4-5
+# model_id=claude-opus-4-8
 # provider=anthropic
 # condition=baseline
 # profile=sighted
@@ -7,10 +7,10 @@
 # run=1
 # scene=['cereal', 'cereal bin']
 # command=put the cereal box in its bin.
-# generated=2026-07-23T13:13:14
+# generated=2026-07-28T09:14:13
 # prompt_chars=12446
-# tokens_in=4031 tokens_out=35
+# tokens_in=5256 tokens_out=40
 # seconds=1.6
 
-say('Ok - putting the cereal in the cereal bin')
+say('Putting the cereal in the cereal bin')
 put_first_on_second('cereal', 'cereal bin')

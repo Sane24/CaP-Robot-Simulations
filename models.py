@@ -16,12 +16,12 @@ Adding a model = one entry here. Nothing else changes.
 import os, sys, time
 
 MODELS = {
-    "claude": dict(provider="anthropic", model_id="claude-opus-4-5",
-                   label="Claude Opus 4.5"),
+    "claude": dict(provider="anthropic", model_id="claude-opus-4-8",
+                   label="Claude Opus 4.8"),
     "openai": dict(provider="openai", model_id="gpt-5.2",
                    label="GPT-5.2"),
-    "gemini": dict(provider="google", model_id="gemini-3-pro",
-                   label="Gemini 3 Pro"),
+    "gemini": dict(provider="google", model_id="gemini-3.1-pro-preview",
+                   label="Gemini 3.1 Pro"),
 }
 DEFAULT_MODELS = ["claude", "openai", "gemini"]
 

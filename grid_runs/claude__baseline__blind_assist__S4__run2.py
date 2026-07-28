@@ -1,5 +1,5 @@
 # model_key=claude
-# model_id=claude-opus-4-5
+# model_id=claude-opus-4-8
 # provider=anthropic
 # condition=baseline
 # profile=blind_assist
@@ -7,10 +7,10 @@
 # run=2
 # scene=['can', 'can bin']
 # command=put the can in its bin.
-# generated=2026-07-23T13:13:58
+# generated=2026-07-28T09:29:02
 # prompt_chars=12474
-# tokens_in=4034 tokens_out=30
-# seconds=1.8
+# tokens_in=5260 tokens_out=34
+# seconds=1.4
 
-say('Putting the can in the can bin')
+say('Ok - putting the can in its bin')
 put_first_on_second('can', 'can bin')

@@ -1,5 +1,5 @@
 # model_key=claude
-# model_id=claude-opus-4-5
+# model_id=claude-opus-4-8
 # provider=anthropic
 # condition=baseline
 # profile=blind_assist
@@ -7,11 +7,11 @@
 # run=2
 # scene=['red block', 'green block', 'blue block', 'yellow block']
 # command=stack all the blocks into one tower.
-# generated=2026-07-23T13:14:10
+# generated=2026-07-28T09:29:10
 # prompt_chars=12527
-# tokens_in=4046 tokens_out=58
-# seconds=1.5
+# tokens_in=5277 tokens_out=80
+# seconds=3.4
 
-say('Stacking all the blocks into one tower')
-block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
-stack_objects_in_order(object_names=block_names)
+order_bottom_to_top = ['red block', 'green block', 'blue block', 'yellow block']
+say('Ok - stacking all the blocks into one tower')
+stack_objects_in_order(object_names=order_bottom_to_top)

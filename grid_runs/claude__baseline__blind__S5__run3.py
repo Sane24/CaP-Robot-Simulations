@@ -1,5 +1,5 @@
 # model_key=claude
-# model_id=claude-opus-4-5
+# model_id=claude-opus-4-8
 # provider=anthropic
 # condition=baseline
 # profile=blind
@@ -7,9 +7,9 @@
 # run=3
 # scene=['cereal', 'cereal bin']
 # command=put the cereal box in its bin.
-# generated=2026-07-23T13:11:51
+# generated=2026-07-28T09:28:11
 # prompt_chars=12444
-# tokens_in=4030 tokens_out=34
+# tokens_in=5255 tokens_out=40
 # seconds=1.6
 
 say('Putting the cereal in the cereal bin')

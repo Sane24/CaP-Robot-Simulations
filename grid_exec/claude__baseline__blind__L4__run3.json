@@ -1,0 +1,40 @@
+{
+ "model": "claude",
+ "condition": "baseline",
+ "profile": "blind",
+ "task": "L4",
+ "run": 3,
+ "model_id": "claude-opus-4-8",
+ "miss": 0,
+ "loc": 3,
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 0,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "silent",
+ "say_count": 1,
+ "say_before_action": 1,
+ "say_mid": 0,
+ "say_after_all": 0,
+ "say_mentions_object": 1,
+ "say_progress": 0,
+ "say_scene": 0,
+ "say_intent": 1,
+ "say_outcome": 0,
+ "total_actions": 2,
+ "exec_seconds": 2.3,
+ "speech_seconds_est": 4.8,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 2.3,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "Ok - putting the milk and the cereal each in its bin"
+  }
+ ]
+}

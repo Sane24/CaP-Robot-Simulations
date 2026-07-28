@@ -1,5 +1,5 @@
 # model_key=claude
-# model_id=claude-opus-4-5
+# model_id=claude-opus-4-8
 # provider=anthropic
 # condition=baseline
 # profile=sighted_assist
@@ -7,11 +7,9 @@
 # run=1
 # scene=['cube']
 # command=lift the cube above the table.
-# generated=2026-07-23T13:14:26
+# generated=2026-07-28T09:14:48
 # prompt_chars=12473
-# tokens_in=4030 tokens_out=46
-# seconds=1.6
+# tokens_in=5257 tokens_out=32
+# seconds=1.7
 
-say('Lifting the cube above the table')
-target_pos = parse_position('a point 10cm above the cube')
-put_first_on_second('cube', target_pos)
+say('Sorry - I can only move objects around on the table, I can\'t lift them into the air')

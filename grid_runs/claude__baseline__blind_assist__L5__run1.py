@@ -1,5 +1,5 @@
 # model_key=claude
-# model_id=claude-opus-4-5
+# model_id=claude-opus-4-8
 # provider=anthropic
 # condition=baseline
 # profile=blind_assist
@@ -7,15 +7,13 @@
 # run=1
 # scene=['red block', 'green block', 'blue block', 'yellow block']
 # command=put the blocks on different corners clockwise starting at the top right corner.
-# generated=2026-07-23T13:14:22
+# generated=2026-07-28T09:14:45
 # prompt_chars=12570
-# tokens_in=4053 tokens_out=139
-# seconds=2.3
+# tokens_in=5287 tokens_out=125
+# seconds=2.5
 
-say('Placing the blocks on different corners clockwise starting at the top right corner')
+say('Ok - placing the blocks on different corners clockwise starting from the top right corner')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
-corners = ['top right corner', 'bottom right corner', 'bottom left corner', 'top left corner']
-for block_name, corner in zip(block_names, corners):
-  corner_pos = parse_position(corner)
-  say(f'Putting the {block_name} on the {corner}')
-  put_first_on_second(block_name, corner_pos)
+corners = parse_position('the corners clockwise starting at the top right corner')
+for block_name, pos in zip(block_names, corners):
+  put_first_on_second(block_name, pos)

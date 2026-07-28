@@ -4,18 +4,37 @@
  "profile": "blind",
  "task": "S2",
  "run": 1,
- "model_id": "claude-opus-4-5",
+ "model_id": "claude-opus-4-8",
  "miss": 0,
+ "loc": 1,
  "syntax_error": 0,
  "runtime_errors": 0,
  "timeouts": 0,
+ "error_msgs": [],
  "truth": 0,
  "reported_outcome": 1,
  "false_confirmations": 0,
  "false_alarms": 0,
- "failure_bucket": "honest_failure",
+ "bucket": "correct_report",
  "say_count": 1,
- "transcript": [
-  "Sorry, I cannot lift objects above the table. I can only move objects around on the table surface."
+ "say_before_action": 1,
+ "say_mid": 0,
+ "say_after_all": 0,
+ "say_mentions_object": 0,
+ "say_progress": 0,
+ "say_scene": 1,
+ "say_intent": 0,
+ "say_outcome": 1,
+ "total_actions": 0,
+ "exec_seconds": 0.0,
+ "speech_seconds_est": 6.4,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 0.0,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "I can only move objects around on the table, I cannot lift them into the air"
+  }
  ]
 }

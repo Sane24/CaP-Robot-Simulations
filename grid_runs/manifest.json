@@ -1,27 +1,17 @@
 {
-  "finished": "2026-07-23T13:23:03",
+  "finished": "2026-07-28T09:29:45",
   "models": {
     "claude": {
       "provider": "anthropic",
-      "model_id": "claude-opus-4-5",
-      "label": "Claude Opus 4.5"
-    },
-    "openai": {
-      "provider": "openai",
-      "model_id": "gpt-5.2",
-      "label": "GPT-5.2"
-    },
-    "gemini": {
-      "provider": "google",
-      "model_id": "gemini-3-pro",
-      "label": "Gemini 3 Pro"
+      "model_id": "claude-opus-4-8",
+      "label": "Claude Opus 4.8"
     }
   },
   "conditions": [
     "baseline"
   ],
   "profiles": [
-    "baseline",
+    "empty",
     "blind",
     "sighted",
     "blind_assist",
@@ -39,22 +29,14 @@
     "L4",
     "L5"
   ],
-  "runs": 2,
-  "cells": 300,
-  "generated": 157,
-  "failed": 100,
+  "runs": 5,
+  "cells": 250,
+  "generated": 101,
+  "failed": 0,
   "tokens": {
     "claude": {
-      "input": 230649,
-      "output": 4239
-    },
-    "openai": {
-      "input": 324380,
-      "output": 5534
-    },
-    "gemini": {
-      "input": 0,
-      "output": 0
+      "input": 531331,
+      "output": 6345
     }
   },
   "cap_prompt_chars": 12341,
