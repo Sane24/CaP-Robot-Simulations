@@ -1,0 +1,21 @@
+{
+ "model": "claude",
+ "condition": "baseline",
+ "profile": "blind_assist",
+ "task": "L2",
+ "run": 2,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "truth": 0,
+ "reported_outcome": 0,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "failure_bucket": "silent",
+ "say_count": 1,
+ "transcript": [
+  "Stacking all the blocks into one tower"
+ ]
+}

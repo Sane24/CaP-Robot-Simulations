@@ -1,0 +1,16 @@
+# model_key=openai
+# model_id=gpt-5.2
+# provider=openai
+# condition=baseline
+# profile=sighted_assist
+# task=S1
+# run=1
+# scene=['red block', 'green block']
+# command=put the red block on the green block.
+# generated=2026-07-23T13:17:35
+# prompt_chars=12500
+# tokens_in=3243 tokens_out=28
+# seconds=1.0
+
+say('Ok - putting the red block on the green block')
+put_first_on_second('red block', 'green block')

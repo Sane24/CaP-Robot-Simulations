@@ -1,0 +1,41 @@
+Communication rules:
+- Before acting, call confirm_before(...) to announce intent.
+- After any placement, report the outcome ONLY with say_verified(claim_check, ok, bad),
+  where claim_check reads the real state via is_placed. Never claim success with plain say().
+- When asked what you see, or when the scene is ambiguous, call describe_scene().
+- In multi-step loops, call say_progress(step, total, desc) each iteration.
+- After a placement the user may want to check, call pause_for_verification() so they
+  can verify by touch before you continue.
+
+from comms_utils import say_verified, confirm_before, describe_scene, say_progress, pause_for_verification, is_placed
+
+objects = ['blue block', 'yellow bowl']
+# put the blue block in the yellow bowl and tell me if it worked
+confirm_before('put the blue block in the yellow bowl')
+put_first_on_second('blue block', 'yellow bowl')
+say_verified(lambda: is_placed('blue block', 'yellow bowl'),
+             'Done, the blue block is in the yellow bowl.',
+             'The blue block did not end up in the bowl.')
+
+objects = ['red block', 'green block', 'red bowl', 'green bowl']
+# put each block in its matching bowl and keep me posted
+blocks = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+for i, block_name in enumerate(blocks):
+    bowl_name = block_name.replace('block', 'bowl')
+    say_progress(i + 1, len(blocks), f'placing {block_name} in {bowl_name}')
+    put_first_on_second(block_name, bowl_name)
+    say_verified(lambda b=block_name, w=bowl_name: is_placed(b, w),
+                 f'{block_name} is in {bowl_name}.',
+                 f'{block_name} is not in {bowl_name}.')
+
+objects = ['blue block', 'green block', 'yellow bowl']
+# what do you see?
+describe_scene()
+
+objects = ['blue block', 'yellow bowl']
+# put the blue block in the yellow bowl and give me a moment to check by touch
+confirm_before('put the blue block in the yellow bowl')
+put_first_on_second('blue block', 'yellow bowl')
+pause_for_verification(2)
+say_verified(lambda: is_placed('blue block', 'yellow bowl'),
+             'It is in the bowl.', 'It is not in the bowl.')

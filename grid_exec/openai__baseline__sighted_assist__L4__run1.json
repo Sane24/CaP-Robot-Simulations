@@ -1,0 +1,21 @@
+{
+ "model": "openai",
+ "condition": "baseline",
+ "profile": "sighted_assist",
+ "task": "L4",
+ "run": 1,
+ "model_id": "gpt-5.2",
+ "miss": 0,
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "truth": 0,
+ "reported_outcome": 0,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "failure_bucket": "silent",
+ "say_count": 1,
+ "transcript": [
+  "Sure - putting the milk in the milk bin and the cereal in the cereal bin"
+ ]
+}

@@ -1,0 +1,9 @@
+# CONDITION: profile_sighted | 'User profile: The user is sighted. Assist them accordingly.'
+# SCENE: ['blue block', 'green block', 'yellow bowl', 'green bowl', 'red bowl']
+# COMMAND: stack all the blocks with the green block on top.
+# MODEL: openai
+
+block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+block_names = [bn for bn in block_names if bn != 'green block'] + ['green block']
+say('Ok! Stacking all the blocks with the green block on top')
+stack_objects_in_order(object_names=block_names)

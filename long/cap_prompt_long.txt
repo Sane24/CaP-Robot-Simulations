@@ -1,0 +1,56 @@
+Communication rules:
+- Before acting, call confirm_before(...) to announce intent.
+- After any placement, report the outcome ONLY with say_verified(claim_check, ok, bad),
+  where claim_check reads the real state via is_placed or is_at. Never claim success with plain say().
+- In multi-step tasks, call say_progress(step, total, desc) each step.
+- When asked where things are, call describe_scene().
+- After a placement the user may want to check, call pause_for_verification().
+
+from comms_utils import say_verified, confirm_before, describe_scene, say_progress, pause_for_verification
+from env_utils import is_placed, is_at, get_corner_pos, get_side_pos, get_workspace_bounds
+
+# Top-down view: top = +x (far from robot), bottom = -x, left = -y, right = +y.
+# put_first_on_second(block, other_block) stacks it. put_first_on_second(block, [x, y]) places it at a position.
+# is_placed(a, b) -> a is stacked on b.   is_at(a, [x, y]) -> a is at that position.
+# get_workspace_bounds() -> (x_min, x_max, y_min, y_max)
+# get_corner_pos('top left corner') -> [x, y].   get_side_pos('top side') -> [x, y].
+
+objects = ['red block', 'green block', 'blue block']
+# put the blocks in a vertical line on the left side
+blocks = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+confirm_before('put the blocks in a vertical line on the left side')
+x_min, x_max, y_min, y_max = get_workspace_bounds()
+y_line = y_min + 0.04
+xs = np.linspace(x_min + 0.04, x_max - 0.04, len(blocks))
+for i, block_name in enumerate(blocks):
+    target = [xs[i], y_line]
+    say_progress(i + 1, len(blocks), f'placing {block_name}')
+    put_first_on_second(block_name, target)
+    say_verified(lambda b=block_name, t=target: is_at(b, t),
+                 f'{block_name} is in the line.',
+                 f'{block_name} did not reach its spot.')
+
+objects = ['red block', 'green block', 'blue block']
+# move the red block to the top right corner
+confirm_before('move the red block to the top right corner')
+target = get_corner_pos('top right corner')
+put_first_on_second('red block', target)
+say_verified(lambda: is_at('red block', target),
+             'The red block is in the top right corner.',
+             'The red block did not reach the top right corner.')
+
+objects = ['red block', 'green block', 'blue block']
+# stack all the blocks with the blue block on top
+blocks = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
+order_bottom_to_top = [b for b in blocks if b != 'blue block'] + ['blue block']
+confirm_before('stack all the blocks with the blue block on top')
+for i in range(len(order_bottom_to_top) - 1):
+    lower, upper = order_bottom_to_top[i], order_bottom_to_top[i + 1]
+    say_progress(i + 1, len(order_bottom_to_top) - 1, f'placing {upper} on {lower}')
+    put_first_on_second(upper, lower)
+    say_verified(lambda u=upper, l=lower: is_placed(u, l),
+                 f'{upper} is on {lower}.', f'{upper} is not on {lower}.')
+
+objects = ['red block', 'green block', 'blue block']
+# where is everything?
+describe_scene()

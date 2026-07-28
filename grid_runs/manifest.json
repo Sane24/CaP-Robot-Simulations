@@ -1,0 +1,62 @@
+{
+  "finished": "2026-07-23T13:23:03",
+  "models": {
+    "claude": {
+      "provider": "anthropic",
+      "model_id": "claude-opus-4-5",
+      "label": "Claude Opus 4.5"
+    },
+    "openai": {
+      "provider": "openai",
+      "model_id": "gpt-5.2",
+      "label": "GPT-5.2"
+    },
+    "gemini": {
+      "provider": "google",
+      "model_id": "gemini-3-pro",
+      "label": "Gemini 3 Pro"
+    }
+  },
+  "conditions": [
+    "baseline"
+  ],
+  "profiles": [
+    "baseline",
+    "blind",
+    "sighted",
+    "blind_assist",
+    "sighted_assist"
+  ],
+  "tasks": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5"
+  ],
+  "runs": 2,
+  "cells": 300,
+  "generated": 157,
+  "failed": 100,
+  "tokens": {
+    "claude": {
+      "input": 230649,
+      "output": 4239
+    },
+    "openai": {
+      "input": 324380,
+      "output": 5534
+    },
+    "gemini": {
+      "input": 0,
+      "output": 0
+    }
+  },
+  "cap_prompt_chars": 12341,
+  "system_prompt": "You write Python robot policy code in the Code-as-Policies style. You will see many example pairs: an English command as a # comment, then the code that does it. For the FINAL command, write ONLY the code that should follow it. No explanations, no markdown fences, match the style and only call functions shown in the examples."
+}
