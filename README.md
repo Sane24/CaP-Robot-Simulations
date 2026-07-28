@@ -1,4 +1,4 @@
-# Communication-Aware Robot Policies - Robosuite Simulation
+# Communication-Aware Robot Policies - Robosuite Simulations
 
 Generate robot policies with LLMs, run them on a simulated robosuite environment, and evaluate the robot's code and actions.
 
