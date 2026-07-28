@@ -108,7 +108,7 @@ CONDITIONS = {
 
 
 def get_profile(name):
-    if name == "baseline":                    # legacy alias for old files
+    if name == "baseline": # alias for old files
         name = "empty"
     if name not in PROFILES:
         raise SystemExit(f"unknown profile '{name}'. options: {', '.join(PROFILES)}")
