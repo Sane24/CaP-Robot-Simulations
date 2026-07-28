@@ -1,8 +1,6 @@
-# Communication-Aware Robot Policies
+# Communication-Aware Robot Policies - Robosuite Simulation
 
-Generate robot policies with LLMs, run them on a simulated Panda arm, and score what the robot **said** against what actually **happened**.
-
-Three conditions compared: `baseline` (nothing), `instructions` (plain-language rules), `predefined_primitives` (communication primitives with the check built in).
+Generate robot policies with LLMs, run them on a simulated robosuite environment, and evaluate the robot's code and actions.
 
 ## Run
 
@@ -15,12 +13,13 @@ export ANTHROPIC_API_KEY=...  OPENAI_API_KEY=...  GEMINI_API_KEY=...
 
 - **`tasks.py`** — the 10 tasks (`S1`-`S5` short, `L1`-`L5` long): command, environment, ground-truth check. Also `verdict()`, the shared claim-vs-reality scorer.
 - **`conditions.py`** — 5 control profiles (`baseline`/`blind`/`sighted`/`blind_assist`/`sighted_assist`) and the 3 policy conditions, including their teaching-block text.
+Three conditions compared: `baseline` (nothing), `instructions` (plain-language rules), `predefined_primitives` (communication primitives with the check built in).
+
 
 ## Pipeline
 
 ```
 run_grid.py → grid_runs/*.py → execute_grid.py → grid_exec/*.json
-                    └────────→ score_grid.py (reads code, never runs it)
 ```
 
 - **`run_grid.py`** — generation. Loops models × conditions × profiles × tasks × runs, writes one `.py` per cell. 
