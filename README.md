@@ -1,2 +1,2 @@
 # Robo-Sims
-Robosuite sims with Code-as-pOLICIES
+Robosuite simulation with Code-as-Policies
