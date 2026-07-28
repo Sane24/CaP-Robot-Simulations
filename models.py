@@ -6,12 +6,6 @@ generation is attributable to an exact, recorded model string.
   python3 models.py --ping     send a 5-token call to each configured model
   python3 models.py --show     print the pinned registry
 
-WHY A REGISTRY (DECISIONS.md): the 7/14 feedback was "clarify which model name."
-Reporting "Claude vs GPT" is not reproducible; "claude-opus-4-5" is. Every
-generated policy file gets the exact model_id stamped in its header, so a result
-can never be orphaned from the model that produced it.
-
-Adding a model = one entry here. Nothing else changes.
 """
 import os, sys, time
 
