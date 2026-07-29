@@ -1,5 +1,5 @@
 {
-  "finished": "2026-07-28T09:29:45",
+  "finished": "2026-07-28T12:11:43",
   "models": {
     "claude": {
       "provider": "anthropic",
@@ -29,14 +29,14 @@
     "L4",
     "L5"
   ],
-  "runs": 5,
-  "cells": 250,
-  "generated": 101,
+  "runs": 10,
+  "cells": 500,
+  "generated": 250,
   "failed": 0,
   "tokens": {
     "claude": {
-      "input": 531331,
-      "output": 6345
+      "input": 1317000,
+      "output": 18051
     }
   },
   "cap_prompt_chars": 12341,
