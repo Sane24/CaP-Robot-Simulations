@@ -140,10 +140,11 @@ fig.tight_layout(); fig.savefig(p("fig2_say_task_x_profile.png"), dpi=200,
                                 bbox_inches="tight")
 
 # ---------- 4: when say() is used + actions/primitives ----------
-fig, ax = plt.subplots(1, 2, figsize=(12, 4.2))
+fig, ax = plt.subplots(1, 2, figsize=(12, 6.2),
+                       gridspec_kw={"width_ratios": [1, 1.15]})
 bot = np.zeros(len(PROF))
 for k, lbl, col in (("say_before_action", "before any action", DARK),
-                    ("say_mid", "after first action", MID),
+                    ("say_mid", "between actions\n(mid-task)", MID),
                     ("say_after_all", "after last action", RED)):
     vals = [100 * sum(r[k] for r in rows if r["profile"] == p)
             / max(sum(r["say_count"] for r in rows if r["profile"] == p), 1)
@@ -156,17 +157,37 @@ style(ax[0], "% of utterances", f"WHEN say() is used, by profile\n{SUB}", pct=Tr
 ax[0].legend(frameon=False, fontsize=8, ncol=3, loc="upper center",
              bbox_to_anchor=(0.5, -0.16))
 
-w = 0.27
-for i, (k, lbl, col) in enumerate((("total_actions", "non-say actions", MID),
-                                   ("primitive_calls", "primitives executed", GREEN),
-                                   ("say_count", "say() calls", DARK))):
-    m, s = zip(*[cellstat([r for r in rows if r["task"] == t], k) for t in TASKS])
-    ax[1].bar(np.arange(len(TASKS)) + (i - 1) * w, m, w, yerr=s, capsize=1.5,
-              label=lbl, color=col, error_kw=dict(lw=0.7, alpha=0.5))
-ax[1].set_xticks(np.arange(len(TASKS))); ax[1].set_xticklabels(TASKS, fontsize=8)
-style(ax[1], "calls per run", "actions vs communication, by task")
+# right panel: physical work vs speech, as a diverging pair per task.
+# A grouped bar chart mixes quantities on different scales (up to 8 actions vs
+# ~1 utterance) and hides the thing that matters -- the GAP between them. A
+# back-to-back layout makes "8 actions, 2 utterances" readable at a glance.
+order = sorted(TASKS, key=lambda t: -cellstat([r for r in rows if r["task"] == t],
+                                              "total_actions")[0])
+acts = [cellstat([r for r in rows if r["task"] == t], "total_actions")[0] for t in order]
+says = [cellstat([r for r in rows if r["task"] == t], "say_count")[0] for t in order]
+prims = [cellstat([r for r in rows if r["task"] == t], "primitive_calls")[0] for t in order]
+y = np.arange(len(order))
+ax[1].barh(y, [-a for a in acts], 0.66, color=MID, label="physical actions")
+ax[1].barh(y, says, 0.66, color=DARK, label="utterances heard")
+if any(prims):
+    ax[1].barh(y, prims, 0.66, left=says, color=GREEN, label="verified primitives")
+for i, (a, sy) in enumerate(zip(acts, says)):
+    if a: ax[1].text(-a - 0.18, i, f"{a:.0f}", va="center", ha="right", fontsize=7.5)
+    ax[1].text(sy + 0.18, i, f"{sy:.1f}", va="center", fontsize=7.5, fontweight="bold")
+ax[1].axvline(0, color="#455A64", lw=1)
+ax[1].set_yticks(y); ax[1].set_yticklabels(order, fontsize=7.5)
+ax[1].invert_yaxis()
+lo = min(acts + [0]); hi = max(says + [1])
+ax[1].set_xlim(-max(acts) - 1.4, hi + 1.4)
+ax[1].set_xticks(np.arange(-int(max(acts)), int(hi) + 1, 2))
+ax[1].set_xticklabels([str(abs(v)) for v in
+                       np.arange(-int(max(acts)), int(hi) + 1, 2)], fontsize=8)
+ax[1].set_xlabel("<-- actions taken        utterances -->", fontsize=8.5)
+ax[1].set_title("Physical work vs speech, per task", fontsize=11, fontweight="bold")
+ax[1].spines[["top", "right", "left"]].set_visible(False)
+ax[1].xaxis.grid(True, color="#E0E0E0", lw=0.7); ax[1].set_axisbelow(True)
 ax[1].legend(frameon=False, fontsize=8, ncol=3, loc="upper center",
-             bbox_to_anchor=(0.5, -0.16))
+             bbox_to_anchor=(0.5, -0.12))
 fig.tight_layout(); fig.savefig(p("fig3_when_and_actions.png"), dpi=200,
                                 bbox_inches="tight")
 
