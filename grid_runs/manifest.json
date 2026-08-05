@@ -1,5 +1,5 @@
 {
-  "finished": "2026-08-05T03:52:25",
+  "finished": "2026-08-05T07:44:18",
   "models": {
     "claude45": {
       "provider": "anthropic",
@@ -8,7 +8,9 @@
     }
   },
   "conditions": [
-    "baseline"
+    "baseline",
+    "instructions",
+    "predefined_primitives"
   ],
   "profiles": [
     "empty",
@@ -40,13 +42,13 @@
     "L5"
   ],
   "runs": 5,
-  "cells": 500,
-  "generated": 500,
+  "cells": 1500,
+  "generated": 1,
   "failed": 0,
   "tokens": {
     "claude45": {
-      "input": 2021675,
-      "output": 39342
+      "input": 4105,
+      "output": 353
     }
   },
   "cap_prompt_chars": 12341,

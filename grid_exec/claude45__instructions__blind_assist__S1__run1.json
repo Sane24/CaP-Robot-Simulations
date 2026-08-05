@@ -1,0 +1,59 @@
+{
+ "model": "claude45",
+ "condition": "instructions",
+ "profile": "blind_assist",
+ "task": "S1",
+ "run": 1,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 9,
+ "primitive_calls": 0,
+ "n_perception": 2,
+ "n_verification": 0,
+ "n_action": 1,
+ "n_communication": 2,
+ "n_nonsay_primitives": 3,
+ "prim_breakdown": {
+  "say": 2,
+  "put_first_on_second": 1,
+  "get_obj_pos": 2
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "correct_report",
+ "say_count": 2,
+ "say_before_action": 1,
+ "say_mid": 0,
+ "say_after_all": 1,
+ "say_objects": 2,
+ "say_progress": 1,
+ "say_environment": 1,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 1,
+ "say_robot_action": 0,
+ "say_error": 0,
+ "total_actions": 1,
+ "exec_seconds": 0.8,
+ "speech_seconds_est": 10.0,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 0.8,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "I am about to put the red block on the green block."
+  },
+  {
+   "after_actions": 1,
+   "t": 0.8,
+   "msg": "Success - the red block is now on top of the green block."
+  }
+ ]
+}

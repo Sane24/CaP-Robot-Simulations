@@ -1,0 +1,64 @@
+{
+ "model": "claude45",
+ "condition": "instructions",
+ "profile": "blind_assist",
+ "task": "L10",
+ "run": 1,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 15,
+ "primitive_calls": 0,
+ "n_perception": 4,
+ "n_verification": 0,
+ "n_action": 2,
+ "n_communication": 3,
+ "n_nonsay_primitives": 6,
+ "prim_breakdown": {
+  "say": 3,
+  "put_first_on_second": 2,
+  "get_obj_pos": 4
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 1,
+ "bucket": "false_alarm",
+ "say_count": 3,
+ "say_before_action": 1,
+ "say_mid": 1,
+ "say_after_all": 1,
+ "say_objects": 3,
+ "say_progress": 0,
+ "say_environment": 0,
+ "say_intent": 0,
+ "say_confirming": 0,
+ "say_verb": 3,
+ "say_robot_action": 1,
+ "say_error": 1,
+ "total_actions": 2,
+ "exec_seconds": 2.9,
+ "speech_seconds_est": 12.4,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 1.6,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "Moving the lemon to the green plate and the bottle to the blue plate"
+  },
+  {
+   "after_actions": 1,
+   "t": 1.3,
+   "msg": "Successfully placed the lemon on the green plate"
+  },
+  {
+   "after_actions": 2,
+   "t": 2.9,
+   "msg": "Failed to place the bottle on the blue plate"
+  }
+ ]
+}

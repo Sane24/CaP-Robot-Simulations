@@ -1,0 +1,81 @@
+{
+ "model": "claude45",
+ "condition": "instructions",
+ "profile": "blind_assist",
+ "task": "L2",
+ "run": 4,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 10,
+ "primitive_calls": 0,
+ "n_perception": 1,
+ "n_verification": 4,
+ "n_action": 4,
+ "n_communication": 6,
+ "n_nonsay_primitives": 9,
+ "prim_breakdown": {
+  "say": 6,
+  "stack_objects_in_order": 1,
+  "put_first_on_second": 3,
+  "is_obj_visible": 4,
+  "get_obj_pos": 1
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "correct_report",
+ "say_count": 6,
+ "say_before_action": 1,
+ "say_mid": 0,
+ "say_after_all": 5,
+ "say_objects": 4,
+ "say_progress": 1,
+ "say_environment": 0,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 5,
+ "say_robot_action": 4,
+ "say_error": 3,
+ "total_actions": 3,
+ "exec_seconds": 2.6,
+ "speech_seconds_est": 25.2,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 2.6,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "I will now stack all the blocks into one tower."
+  },
+  {
+   "after_actions": 3,
+   "t": 2.6,
+   "msg": "Warning: the red block is not visible, the stacking may have failed."
+  },
+  {
+   "after_actions": 3,
+   "t": 2.6,
+   "msg": "Warning: the green block is not visible, the stacking may have failed."
+  },
+  {
+   "after_actions": 3,
+   "t": 2.6,
+   "msg": "Warning: the blue block is not visible, the stacking may have failed."
+  },
+  {
+   "after_actions": 3,
+   "t": 2.6,
+   "msg": "The yellow block is visible at position [0.04847169 0.01879679 0.94519656]."
+  },
+  {
+   "after_actions": 3,
+   "t": 2.6,
+   "msg": "Finished stacking the blocks into a tower."
+  }
+ ]
+}

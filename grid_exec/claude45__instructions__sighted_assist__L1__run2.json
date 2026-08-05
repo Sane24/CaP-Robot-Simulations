@@ -1,0 +1,94 @@
+{
+ "model": "claude45",
+ "condition": "instructions",
+ "profile": "sighted_assist",
+ "task": "L1",
+ "run": 2,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 8,
+ "primitive_calls": 0,
+ "n_perception": 0,
+ "n_verification": 4,
+ "n_action": 4,
+ "n_communication": 9,
+ "n_nonsay_primitives": 8,
+ "prim_breakdown": {
+  "say": 9,
+  "put_first_on_second": 4,
+  "is_obj_visible": 4
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 0,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "correct_report",
+ "say_count": 9,
+ "say_before_action": 2,
+ "say_mid": 6,
+ "say_after_all": 1,
+ "say_objects": 8,
+ "say_progress": 3,
+ "say_environment": 0,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 0,
+ "say_robot_action": 5,
+ "say_error": 1,
+ "total_actions": 4,
+ "exec_seconds": 4.0,
+ "speech_seconds_est": 37.2,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 1.2,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "Ok - putting every object in its matching bin"
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "Putting the milk in the milk bin"
+  },
+  {
+   "after_actions": 1,
+   "t": 1.1,
+   "msg": "The milk is no longer visible, so it appears to be in the bin now"
+  },
+  {
+   "after_actions": 1,
+   "t": 1.1,
+   "msg": "Putting the bread in the bread bin"
+  },
+  {
+   "after_actions": 2,
+   "t": 2.1,
+   "msg": "The bread is no longer visible, so it appears to be in the bin now"
+  },
+  {
+   "after_actions": 2,
+   "t": 2.1,
+   "msg": "Putting the cereal in the cereal bin"
+  },
+  {
+   "after_actions": 3,
+   "t": 2.7,
+   "msg": "The cereal is still visible, so the action may have failed"
+  },
+  {
+   "after_actions": 3,
+   "t": 2.7,
+   "msg": "Putting the can in the can bin"
+  },
+  {
+   "after_actions": 4,
+   "t": 4.0,
+   "msg": "The can is no longer visible, so it appears to be in the bin now"
+  }
+ ]
+}

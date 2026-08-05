@@ -1,0 +1,157 @@
+{
+ "model": "claude45",
+ "condition": "predefined_primitives",
+ "profile": "blind_assist",
+ "task": "L9",
+ "run": 1,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 18,
+ "primitive_calls": 19,
+ "n_perception": 4,
+ "n_verification": 8,
+ "n_action": 8,
+ "n_communication": 39,
+ "n_nonsay_primitives": 20,
+ "prim_breakdown": {
+  "get_obj_names": 1,
+  "parse_obj_name": 1,
+  "parse_position": 1,
+  "confirm_before": 2,
+  "say": 20,
+  "say_progress": 8,
+  "put_first_on_second": 8,
+  "say_verified": 8,
+  "is_at": 8,
+  "transform_shape_pts": 1,
+  "pause_for_verification": 1
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 0,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "silent",
+ "say_count": 20,
+ "say_before_action": 2,
+ "say_mid": 15,
+ "say_after_all": 3,
+ "say_objects": 16,
+ "say_progress": 0,
+ "say_environment": 1,
+ "say_intent": 2,
+ "say_confirming": 0,
+ "say_verb": 10,
+ "say_robot_action": 8,
+ "say_error": 0,
+ "total_actions": 8,
+ "exec_seconds": 6.5,
+ "speech_seconds_est": 47.6,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 0.8,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "About to arrange the blocks in a square around the middle."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": ": placing the red block."
+  },
+  {
+   "after_actions": 1,
+   "t": 0.8,
+   "msg": "The red block is in position."
+  },
+  {
+   "after_actions": 1,
+   "t": 0.8,
+   "msg": ": placing the green block."
+  },
+  {
+   "after_actions": 2,
+   "t": 1.6,
+   "msg": "The green block is in position."
+  },
+  {
+   "after_actions": 2,
+   "t": 1.6,
+   "msg": ": placing the blue block."
+  },
+  {
+   "after_actions": 3,
+   "t": 2.3,
+   "msg": "The blue block is in position."
+  },
+  {
+   "after_actions": 3,
+   "t": 2.3,
+   "msg": ": placing the yellow block."
+  },
+  {
+   "after_actions": 4,
+   "t": 3.2,
+   "msg": "The yellow block is in position."
+  },
+  {
+   "after_actions": 4,
+   "t": 3.2,
+   "msg": "About to make the square bigger."
+  },
+  {
+   "after_actions": 4,
+   "t": 3.2,
+   "msg": ": moving the red block outward."
+  },
+  {
+   "after_actions": 5,
+   "t": 3.9,
+   "msg": "The red block is in position."
+  },
+  {
+   "after_actions": 5,
+   "t": 3.9,
+   "msg": ": moving the green block outward."
+  },
+  {
+   "after_actions": 6,
+   "t": 4.7,
+   "msg": "The green block is in position."
+  },
+  {
+   "after_actions": 6,
+   "t": 4.7,
+   "msg": ": moving the blue block outward."
+  },
+  {
+   "after_actions": 7,
+   "t": 5.4,
+   "msg": "The blue block is in position."
+  },
+  {
+   "after_actions": 7,
+   "t": 5.4,
+   "msg": ": moving the yellow block outward."
+  },
+  {
+   "after_actions": 8,
+   "t": 6.2,
+   "msg": "The yellow block is in position."
+  },
+  {
+   "after_actions": 8,
+   "t": 6.2,
+   "msg": "Pausing 2 seconds so you can check by touch."
+  },
+  {
+   "after_actions": 8,
+   "t": 6.5,
+   "msg": "Resuming."
+  }
+ ]
+}

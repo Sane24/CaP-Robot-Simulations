@@ -1,0 +1,98 @@
+{
+ "model": "claude45",
+ "condition": "predefined_primitives",
+ "profile": "empty",
+ "task": "L1",
+ "run": 5,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 7,
+ "primitive_calls": 9,
+ "n_perception": 1,
+ "n_verification": 4,
+ "n_action": 4,
+ "n_communication": 18,
+ "n_nonsay_primitives": 9,
+ "prim_breakdown": {
+  "get_obj_names": 1,
+  "confirm_before": 1,
+  "say": 9,
+  "say_progress": 4,
+  "put_first_on_second": 4,
+  "say_verified": 4,
+  "is_in_bin": 4
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "correct_report",
+ "say_count": 9,
+ "say_before_action": 2,
+ "say_mid": 6,
+ "say_after_all": 1,
+ "say_objects": 8,
+ "say_progress": 0,
+ "say_environment": 0,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 5,
+ "say_robot_action": 4,
+ "say_error": 0,
+ "total_actions": 4,
+ "exec_seconds": 6.2,
+ "speech_seconds_est": 24.4,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 2.4,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "About to put every object in its matching bin."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": ": placing the milk in its bin."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.1,
+   "msg": "The milk is in its bin."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.1,
+   "msg": ": placing the bread in its bin."
+  },
+  {
+   "after_actions": 2,
+   "t": 3.5,
+   "msg": "The bread is in its bin."
+  },
+  {
+   "after_actions": 2,
+   "t": 3.5,
+   "msg": ": placing the cereal in its bin."
+  },
+  {
+   "after_actions": 3,
+   "t": 4.8,
+   "msg": "The cereal is in its bin."
+  },
+  {
+   "after_actions": 3,
+   "t": 4.8,
+   "msg": ": placing the can in its bin."
+  },
+  {
+   "after_actions": 4,
+   "t": 6.2,
+   "msg": "The can is in its bin."
+  }
+ ]
+}

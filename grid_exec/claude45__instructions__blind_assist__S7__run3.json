@@ -1,0 +1,62 @@
+{
+ "model": "claude45",
+ "condition": "instructions",
+ "profile": "blind_assist",
+ "task": "S7",
+ "run": 3,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 12,
+ "primitive_calls": 0,
+ "n_perception": 6,
+ "n_verification": 0,
+ "n_action": 1,
+ "n_communication": 2,
+ "n_nonsay_primitives": 7,
+ "prim_breakdown": {
+  "say": 2,
+  "get_obj_names": 1,
+  "parse_obj_name": 1,
+  "parse_position": 1,
+  "put_first_on_second": 1,
+  "get_obj_pos": 3
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 0,
+ "reported_outcome": 0,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "silent",
+ "say_count": 2,
+ "say_before_action": 1,
+ "say_mid": 0,
+ "say_after_all": 1,
+ "say_objects": 2,
+ "say_progress": 1,
+ "say_environment": 0,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 1,
+ "say_robot_action": 0,
+ "say_error": 0,
+ "total_actions": 1,
+ "exec_seconds": 0.8,
+ "speech_seconds_est": 18.0,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 0.8,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "I will move the blue block to a point between the red block and the second block from the left."
+  },
+  {
+   "after_actions": 1,
+   "t": 0.8,
+   "msg": "The action may not have fully succeeded. The blue block is now at position [3.04752175e-02 2.81735974e-04 8.20784489e-01], but I expected it closer to the midpoint."
+  }
+ ]
+}

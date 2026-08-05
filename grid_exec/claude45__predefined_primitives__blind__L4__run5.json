@@ -1,0 +1,98 @@
+{
+ "model": "claude45",
+ "condition": "predefined_primitives",
+ "profile": "blind",
+ "task": "L4",
+ "run": 5,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 8,
+ "primitive_calls": 7,
+ "n_perception": 0,
+ "n_verification": 2,
+ "n_action": 2,
+ "n_communication": 16,
+ "n_nonsay_primitives": 4,
+ "prim_breakdown": {
+  "confirm_before": 1,
+  "say": 9,
+  "say_progress": 2,
+  "put_first_on_second": 2,
+  "say_verified": 2,
+  "is_in_bin": 2,
+  "pause_for_verification": 2
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 0,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "correct_report",
+ "say_count": 9,
+ "say_before_action": 2,
+ "say_mid": 4,
+ "say_after_all": 3,
+ "say_objects": 7,
+ "say_progress": 0,
+ "say_environment": 0,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 3,
+ "say_robot_action": 2,
+ "say_error": 1,
+ "total_actions": 2,
+ "exec_seconds": 2.5,
+ "speech_seconds_est": 24.4,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 1.1,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "About to put the milk and the cereal each in their bins."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": ": placing the milk in its bin."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.1,
+   "msg": "The milk is in its bin."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.1,
+   "msg": "Pausing 2 seconds so you can check by touch."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.5,
+   "msg": "Resuming."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.5,
+   "msg": ": placing the cereal in its bin."
+  },
+  {
+   "after_actions": 2,
+   "t": 2.1,
+   "msg": "The cereal did not end up in its bin."
+  },
+  {
+   "after_actions": 2,
+   "t": 2.1,
+   "msg": "Pausing 2 seconds so you can check by touch."
+  },
+  {
+   "after_actions": 2,
+   "t": 2.5,
+   "msg": "Resuming."
+  }
+ ]
+}

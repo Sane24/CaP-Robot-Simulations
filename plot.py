@@ -47,7 +47,8 @@ print(f"{len(rows)} runs | models: {', '.join(MODELS)} | ids: {', '.join(IDS)}")
 if len(IDS) > 1 and not LABEL:
     print("WARNING: this csv mixes model ids -- filter with --model or --csv")
 NUM = ("truth reported_outcome false_confirmations false_alarms say_count loc "
-       "say_before_action say_mid say_after_all total_actions primitive_calls"
+       "say_before_action say_mid say_after_all total_actions primitive_calls "
+       "n_perception n_verification n_action n_communication n_nonsay_primitives"
        ).split() + [f"say_{c}" for c in CODES]
 for r in rows:
     for k in NUM:
@@ -255,4 +256,62 @@ ax[1].set_title("category share, by task", fontsize=11, fontweight="bold")
 fig.colorbar(im, ax=ax[1], shrink=0.7, label="% of that task's utterances")
 fig.tight_layout(); fig.savefig(p("fig6_say_content.png"), dpi=200, bbox_inches="tight")
 
-print(f"wrote 6 figures to {OUT}/  ({SUB})")
+# ---------- 7: non-say primitives vs say(), per task ----------
+# The physical-work figure asks "how much did it MOVE vs TELL". This one asks
+# "how much did it COMPUTE vs TELL": every non-communication primitive the
+# policy called (perception + verification + action) against the utterances the
+# user heard. In baseline the verification slice is empty by construction,
+# which is the point -- the policy queries the world plenty and checks nothing.
+if any(r["n_nonsay_primitives"] for r in rows):
+    order = sorted(TASKS, key=lambda t: -cellstat(
+        [r for r in rows if r["task"] == t], "n_nonsay_primitives")[0])
+    y = np.arange(len(order))
+    fig, ax = plt.subplots(1, 2, figsize=(13, 0.34 * len(order) + 2.4),
+                           gridspec_kw={"width_ratios": [1.5, 1]})
+
+    left = np.zeros(len(order))
+    for key, lbl, col in (("n_perception", "perception", "#90A4AE"),
+                          ("n_verification", "verification", GREEN),
+                          ("n_action", "action", MID)):
+        v = [cellstat([r for r in rows if r["task"] == t], key)[0] for t in order]
+        ax[0].barh(y, v, 0.66, left=left, label=lbl, color=col,
+                   edgecolor="white", lw=0.6)
+        left += np.array(v)
+    says = [cellstat([r for r in rows if r["task"] == t], "say_count")[0]
+            for t in order]
+    ax[0].barh(y, says, 0.30, left=left + 0.35, color=DARK, label="say()")
+    for i, (ns_, sy) in enumerate(zip(left, says)):
+        ax[0].text(ns_ + sy + 0.75, i, f"{sy:.1f}", va="center", fontsize=7.5,
+                   fontweight="bold", color=DARK)
+    ax[0].set_yticks(y); ax[0].set_yticklabels(order, fontsize=8)
+    ax[0].invert_yaxis()
+    ax[0].set_xlabel("primitive calls per run", fontsize=9)
+    ax[0].set_title("Non-say primitives vs say(), per task", fontsize=11,
+                    fontweight="bold")
+    ax[0].spines[["top", "right", "left"]].set_visible(False)
+    ax[0].xaxis.grid(True, color="#E0E0E0", lw=0.7); ax[0].set_axisbelow(True)
+    ax[0].legend(frameon=False, fontsize=8, ncol=4, loc="upper center",
+                 bbox_to_anchor=(0.5, -0.06 - 1.2 / len(order)))
+
+    # right: utterances per non-say primitive -- speech per unit of work
+    ratio = [(s_ / n_) if n_ else 0
+             for s_, n_ in zip(says, [cellstat(
+                 [r for r in rows if r["task"] == t], "n_nonsay_primitives")[0]
+                 for t in order])]
+    ax[1].barh(y, ratio, 0.66,
+               color=[RED if v < 0.25 else DARK for v in ratio])
+    for i, v in enumerate(ratio):
+        ax[1].text(v + 0.012, i, f"{v:.2f}", va="center", fontsize=7.5)
+    ax[1].axvline(1.0, color="#455A64", ls="--", lw=1)
+    ax[1].text(1.0, -0.9, "1 utterance per primitive", fontsize=7.5,
+               color="#455A64", ha="center", va="bottom")
+    ax[1].set_xlim(0, max(max(ratio), 1.0) * 1.18)
+    ax[1].set_yticks(y); ax[1].set_yticklabels([]); ax[1].invert_yaxis()
+    ax[1].set_xlabel("utterances per non-say primitive", fontsize=9)
+    ax[1].set_title("Speech per unit of work", fontsize=11, fontweight="bold")
+    ax[1].spines[["top", "right", "left"]].set_visible(False)
+    ax[1].xaxis.grid(True, color="#E0E0E0", lw=0.7); ax[1].set_axisbelow(True)
+    fig.tight_layout()
+    fig.savefig(p("fig7_primitives_vs_say.png"), dpi=200, bbox_inches="tight")
+
+print(f"wrote figures to {OUT}/  ({SUB})")

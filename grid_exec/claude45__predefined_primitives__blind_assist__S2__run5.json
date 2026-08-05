@@ -1,0 +1,73 @@
+{
+ "model": "claude45",
+ "condition": "predefined_primitives",
+ "profile": "blind_assist",
+ "task": "S2",
+ "run": 5,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 6,
+ "primitive_calls": 3,
+ "n_perception": 0,
+ "n_verification": 1,
+ "n_action": 0,
+ "n_communication": 7,
+ "n_nonsay_primitives": 1,
+ "prim_breakdown": {
+  "confirm_before": 1,
+  "say": 4,
+  "say_verified": 1,
+  "was_lifted": 1,
+  "pause_for_verification": 1
+ },
+ "syntax_error": 0,
+ "runtime_errors": 1,
+ "timeouts": 0,
+ "error_msgs": [
+  "NameError: name 'lift' is not defined"
+ ],
+ "truth": 0,
+ "reported_outcome": 0,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "silent",
+ "say_count": 4,
+ "say_before_action": 4,
+ "say_mid": 0,
+ "say_after_all": 0,
+ "say_objects": 2,
+ "say_progress": 0,
+ "say_environment": 1,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 2,
+ "say_robot_action": 0,
+ "say_error": 0,
+ "total_actions": 0,
+ "exec_seconds": 0.3,
+ "speech_seconds_est": 9.2,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 0.3,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "About to lift the cube above the table."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "The cube was not lifted."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "Pausing 2 seconds so you can check by touch."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.3,
+   "msg": "Resuming."
+  }
+ ]
+}

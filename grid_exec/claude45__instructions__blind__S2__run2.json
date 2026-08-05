@@ -1,0 +1,60 @@
+{
+ "model": "claude45",
+ "condition": "instructions",
+ "profile": "blind",
+ "task": "S2",
+ "run": 2,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 8,
+ "primitive_calls": 0,
+ "n_perception": 2,
+ "n_verification": 0,
+ "n_action": 1,
+ "n_communication": 2,
+ "n_nonsay_primitives": 3,
+ "prim_breakdown": {
+  "say": 2,
+  "parse_position": 1,
+  "put_first_on_second": 1,
+  "get_obj_pos": 1
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "correct_report",
+ "say_count": 2,
+ "say_before_action": 1,
+ "say_mid": 0,
+ "say_after_all": 1,
+ "say_objects": 2,
+ "say_progress": 1,
+ "say_environment": 2,
+ "say_intent": 0,
+ "say_confirming": 0,
+ "say_verb": 2,
+ "say_robot_action": 1,
+ "say_error": 0,
+ "total_actions": 1,
+ "exec_seconds": 0.6,
+ "speech_seconds_est": 7.2,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 0.6,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "Ok - lifting the cube above the table"
+  },
+  {
+   "after_actions": 1,
+   "t": 0.6,
+   "msg": "Success - the cube is now lifted above the table"
+  }
+ ]
+}

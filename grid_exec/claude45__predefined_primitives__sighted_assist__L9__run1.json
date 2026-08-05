@@ -1,0 +1,87 @@
+{
+ "model": "claude45",
+ "condition": "predefined_primitives",
+ "profile": "sighted_assist",
+ "task": "L9",
+ "run": 1,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 14,
+ "primitive_calls": 5,
+ "n_perception": 4,
+ "n_verification": 4,
+ "n_action": 8,
+ "n_communication": 11,
+ "n_nonsay_primitives": 16,
+ "prim_breakdown": {
+  "confirm_before": 1,
+  "say": 6,
+  "get_obj_names": 1,
+  "parse_obj_name": 1,
+  "parse_position": 1,
+  "say_progress": 2,
+  "put_first_on_second": 8,
+  "transform_shape_pts": 1,
+  "say_verified": 1,
+  "is_at": 4,
+  "pause_for_verification": 1
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 0,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "silent",
+ "say_count": 6,
+ "say_before_action": 2,
+ "say_mid": 1,
+ "say_after_all": 3,
+ "say_objects": 0,
+ "say_progress": 1,
+ "say_environment": 3,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 4,
+ "say_robot_action": 2,
+ "say_error": 0,
+ "total_actions": 8,
+ "exec_seconds": 6.6,
+ "speech_seconds_est": 20.8,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 3.2,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "About to arrange the blocks in a square around the middle, then make the square bigger."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": ": arranging blocks in a square around the middle."
+  },
+  {
+   "after_actions": 4,
+   "t": 3.2,
+   "msg": ": making the square bigger."
+  },
+  {
+   "after_actions": 8,
+   "t": 6.3,
+   "msg": "Done, the blocks are arranged in a larger square around the middle."
+  },
+  {
+   "after_actions": 8,
+   "t": 6.3,
+   "msg": "Pausing 2 seconds so you can check by touch."
+  },
+  {
+   "after_actions": 8,
+   "t": 6.6,
+   "msg": "Resuming."
+  }
+ ]
+}

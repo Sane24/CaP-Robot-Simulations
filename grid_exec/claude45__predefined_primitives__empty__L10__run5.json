@@ -1,0 +1,79 @@
+{
+ "model": "claude45",
+ "condition": "predefined_primitives",
+ "profile": "empty",
+ "task": "L10",
+ "run": 5,
+ "model_id": "claude-opus-4-5",
+ "miss": 0,
+ "loc": 19,
+ "primitive_calls": 5,
+ "n_perception": 4,
+ "n_verification": 2,
+ "n_action": 2,
+ "n_communication": 10,
+ "n_nonsay_primitives": 8,
+ "prim_breakdown": {
+  "confirm_before": 1,
+  "say": 5,
+  "get_obj_names": 2,
+  "parse_obj_name": 2,
+  "say_progress": 2,
+  "put_first_on_second": 2,
+  "say_verified": 2,
+  "is_on_plate": 2
+ },
+ "syntax_error": 0,
+ "runtime_errors": 0,
+ "timeouts": 0,
+ "error_msgs": [],
+ "truth": 1,
+ "reported_outcome": 1,
+ "false_confirmations": 0,
+ "false_alarms": 0,
+ "bucket": "correct_report",
+ "say_count": 5,
+ "say_before_action": 2,
+ "say_mid": 2,
+ "say_after_all": 1,
+ "say_objects": 5,
+ "say_progress": 0,
+ "say_environment": 0,
+ "say_intent": 1,
+ "say_confirming": 0,
+ "say_verb": 3,
+ "say_robot_action": 2,
+ "say_error": 0,
+ "total_actions": 2,
+ "exec_seconds": 2.9,
+ "speech_seconds_est": 18.0,
+ "silence_seconds_est": 0,
+ "longest_silent_gap": 1.6,
+ "utterances": [
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": "About to move all fruits to the green plate and bottles to the blue plate."
+  },
+  {
+   "after_actions": 0,
+   "t": 0.0,
+   "msg": ": placing the lemon on the green plate."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.3,
+   "msg": "The lemon is on the green plate."
+  },
+  {
+   "after_actions": 1,
+   "t": 1.3,
+   "msg": ": placing the bottle on the blue plate."
+  },
+  {
+   "after_actions": 2,
+   "t": 2.9,
+   "msg": "The bottle is on the blue plate."
+  }
+ ]
+}

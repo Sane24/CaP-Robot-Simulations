@@ -33,7 +33,7 @@ say() analysis (runtime, so loops count per iteration = what the user hears):
 
 Profiles named "baseline" in old files are normalized to "empty" on load.
 """
-import ast, csv, json, re, signal, sys, time, pathlib, statistics as st
+import ast, collections, csv, json, re, signal, sys, time, pathlib, statistics as st
 from collections import defaultdict
 
 import tasks as task_registry
@@ -59,6 +59,26 @@ ROBOT_ACTION_RE = re.compile(r"\b(putting|placing|moving|stacking|lifting|pickin
 ERROR_RE = re.compile(r"cannot|can'?t|unable|fail\w*|error|did ?n[o']t|"
                       r"don'?t see|doesn'?t exist|missing|no \w+ (block|object)|"
                       r"i only|i can only")
+
+# Primitive categories. Every callable the policy can reach is counted in
+# exactly one of these, so "how much did the robot LOOK / CHECK / MOVE / TELL"
+# is answerable per run. The distinction that matters for this project is
+# PERCEPTION (reads the world into the policy's variables) vs VERIFICATION
+# (tests a claim against the world) -- baseline policies do plenty of the
+# former and almost none of the latter.
+PRIM_CATS = {
+    "perception": ("get_obj_names", "get_obj_pos", "parse_obj_name",
+                   "parse_position", "parse_question", "get_workspace_bounds",
+                   "get_corner_pos", "get_side_pos", "get_corner_name",
+                   "get_side_name", "get_initial_pos", "transform_shape_pts"),
+    "verification": ("is_placed", "is_at", "is_in_bin", "was_lifted",
+                     "is_in_bowl", "is_on_plate", "is_obj_visible"),
+    "action": ("put_first_on_second", "stack_objects_in_order"),
+    "communication": ("say", "say_verified", "confirm_before", "describe_scene",
+                      "say_progress", "pause_for_verification"),
+}
+COMM_PRIMS = ("say_verified", "confirm_before", "describe_scene",
+              "say_progress", "pause_for_verification")
 
 SAY_CODES = ("objects", "progress", "environment", "intent", "confirming",
              "verb", "robot_action", "error")
@@ -287,15 +307,18 @@ def execute(files, miss=False):
                 continue
             env.reset()
             utter, n_act = [], {"c": 0}
+            calls = collections.Counter()
             tp = time.time()
-            env.say = lambda m, _u=utter, _n=n_act, _t=tp, _o=orig_say: (
+            env.say = lambda m, _u=utter, _n=n_act, _t=tp, _o=orig_say, _c=calls: (
+                _c.__setitem__("say", _c["say"] + 1),
                 _u.append(dict(t=time.time() - _t, after_actions=_n["c"],
-                               msg=str(m))), _o(m))[1]
+                               msg=str(m))), _o(m))[2]
             def _counted_put(a, b, _n=n_act, _o=orig_put, _e=env, **k):
                 """Count only calls where the arm actually MOVED. A call naming
                 an object that does not exist is rejected by the shim before any
                 motion, so it is not an attempt -- counting it would classify an
                 a-priori failure as an execution failure."""
+                calls["put_first_on_second"] += 1
                 r = _o(a, b, **({**k, "_miss": True} if miss else k))
                 if getattr(_e, "last_failure_reason", None) != "unknown_object":
                     _n["c"] += 1
@@ -303,18 +326,28 @@ def execute(files, miss=False):
             env.put_first_on_second = _counted_put
             ns = {**build_ns(env), **make_primitives(env)}
             pcount = {"c": 0}
-            for pn in ("say_verified", "confirm_before", "describe_scene",
-                       "say_progress", "pause_for_verification"):
-                if pn in ns:
-                    ns[pn] = (lambda *a, _f=ns[pn], _p=pcount, **k:
-                              (_p.__setitem__("c", _p["c"] + 1), _f(*a, **k))[1])
+            cat_of = {n: c for c, names in PRIM_CATS.items() for n in names}
+            for pn, fn in list(ns.items()):
+                if not callable(fn) or pn in ("say", "put_first_on_second"):
+                    continue          # these two are wrapped separately below
+                def _tally(*a, _f=fn, _n=pn, _c=calls, _p=pcount, **k):
+                    _c[_n] += 1
+                    if _n in COMM_PRIMS:
+                        _p["c"] += 1
+                    return _f(*a, **k)
+                ns[pn] = _tally
             code = strip_code(f.read_text())
             exec_stats = run_policy(env, ns, code)
             exec_s = time.time() - tp
             rec = {**parse_stem(f.stem),
                    "model_id": read_meta(f).get("model_id", "?"),
                    "miss": int(miss), "loc": count_loc(code),
-                   "primitive_calls": pcount["c"], **exec_stats,
+                   "primitive_calls": pcount["c"],
+                   **{f"n_{c}": sum(calls[n] for n in names)
+                      for c, names in PRIM_CATS.items()},
+                   "n_nonsay_primitives": sum(v for k2, v in calls.items()
+                                              if cat_of.get(k2) != "communication"),
+                   "prim_breakdown": dict(calls), **exec_stats,
                    **score_run(env, tid, utter, n_act["c"], exec_s),
                    "utterances": [dict(after_actions=u["after_actions"],
                                        t=round(u["t"], 1), msg=u["msg"])
@@ -459,6 +492,80 @@ def report(rows, csv_out=False):
     if bad_tasks:
         print("   syntax errors by task: "
               + ", ".join(f"{t}={n}" for t, n in bad_tasks))
+
+    # ---- 0a. HEADLINE: condition comparison (the experiment's main contrast) ----
+    if len(CONDS) > 1:
+        print("\n0. CONDITION COMPARISON   the main contrast: does the "
+              "communication support work?")
+        print("   rates are mean +- sd across cells; 'claim accuracy' = share of "
+              "outcome claims that were TRUE")
+        print(f"{'condition':24s} {'runs':>6s} {'say()':>11s} {'reported':>11s} "
+              f"{'FAILED: correct':>16s} {'FALSE conf':>12s} {'silent':>10s} "
+              f"{'claim acc':>11s}")
+        print("-" * 104)
+        for c in CONDS:
+            sel = [r for r in rows if r["condition"] == c]
+            f_ = [r for r in sel if not r["truth"]]
+            byc = defaultdict(list)
+            for r in f_:
+                byc[(r["model"], c, r["profile"], r["task"])].append(r)
+            def frate(b):
+                if not byc:
+                    return None, None
+                return msd([sum(1 for r in cell if r["bucket"] == b) / len(cell)
+                            for cell in byc.values()])[:2]
+            claims = [r for r in sel if r["reported_outcome"] and r["total_actions"]]
+            wrong = [r for r in claims
+                     if r["false_confirmations"] or r["false_alarms"]]
+            acc = (f"{100*(len(claims)-len(wrong))/len(claims):.0f}%"
+                   if claims else "--")
+            print(f"{c:24s} {len(sel):>6d}"
+                  + fmt(*cellagg(rows, "say_count", condition=c)[:2], w=11)
+                  + fmt(*cellagg(rows, "reported_outcome", condition=c)[:2],
+                        w=11, pct=True)
+                  + fmt(*frate("correct_report"), w=16, pct=True)
+                  + fmt(*frate("false_confirm"), w=12, pct=True)
+                  + fmt(*frate("silent"), w=10, pct=True)
+                  + f"{acc:>11s}")
+
+        # per-profile view of the same contrast
+        for metric, label in (("say_count", "say() per run"),
+                              ("reported_outcome", "outcome reporting rate")):
+            print(f"\n   {label}: condition x profile")
+            print(f"   {'condition':24s}" + "".join(f"{p:>15s}" for p in PROFS)
+                  + f"{'ALL':>15s}")
+            print("   " + "-" * (24 + 15 * (len(PROFS) + 1)))
+            for c in CONDS:
+                line = f"   {c:24s}"
+                for p in list(PROFS) + [None]:
+                    f2 = dict(condition=c) if p is None else dict(condition=c, profile=p)
+                    line += fmt(*cellagg(rows, metric, **f2)[:2], w=15,
+                                pct=(metric == "reported_outcome"))
+                print(line)
+
+        # success-side and failure-side partitions by condition
+        for keep, buckets, title in (
+                (0, ["correct_report", "false_confirm", "silent"],
+                 "FAILED runs by condition"),
+                (1, ["correct_report", "false_alarm", "silent"],
+                 "SUCCESS runs by condition")):
+            sub = [r for r in rows if int(r["truth"]) == keep]
+            print(f"\n   {title}")
+            print(f"   {'condition':24s} {'n':>6s}" + "".join(f"{b:>17s}" for b in buckets))
+            print("   " + "-" * (30 + 17 * len(buckets)))
+            for c in CONDS:
+                sel = [r for r in sub if r["condition"] == c]
+                if not sel:
+                    continue
+                byc = defaultdict(list)
+                for r in sel:
+                    byc[(r["model"], c, r["profile"], r["task"])].append(r)
+                line = f"   {c:24s} {len(sel):>6d}"
+                for b in buckets:
+                    line += fmt(*msd([sum(1 for r in cell if r["bucket"] == b)
+                                      / len(cell) for cell in byc.values()])[:2],
+                                w=17, pct=True)
+                print(line)
 
     # ---- 0. task legend: query, environment, validity ----
     print("\nTASK LEGEND   (user query | environment objects | query valid?)")
@@ -649,7 +756,7 @@ def report(rows, csv_out=False):
     if csv_out:
         for r in rows:
             r.setdefault("failure_type", None)
-        drop = {"utterances", "error_msgs"}
+        drop = {"utterances", "error_msgs", "prim_breakdown"}
         keep = [k for k in rows[0] if k not in drop]
         with open("exec_runs.csv", "w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=keep, extrasaction="ignore")
