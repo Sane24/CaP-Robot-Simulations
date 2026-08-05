@@ -1,0 +1,18 @@
+# model_key=claude45
+# model_id=claude-opus-4-5
+# provider=anthropic
+# condition=baseline
+# profile=sighted
+# task=L1
+# run=1
+# scene=['milk', 'bread', 'cereal', 'can', 'milk bin', 'bread bin', 'cereal bin', 'can bin']
+# command=put every object in its matching bin, one at a time.
+# generated=2026-08-05T03:41:59
+# prompt_chars=12528
+# tokens_in=4062 tokens_out=79
+# seconds=2.2
+
+say('Ok - putting every object in its matching bin')
+matches = {'milk': 'milk bin', 'bread': 'bread bin', 'cereal': 'cereal bin', 'can': 'can bin'}
+for obj, bin in matches.items():
+  put_first_on_second(obj, bin)

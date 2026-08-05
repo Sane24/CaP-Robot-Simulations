@@ -7,11 +7,12 @@
  "model_id": "claude-opus-4-8",
  "miss": 0,
  "loc": 4,
+ "primitive_calls": 0,
  "syntax_error": 0,
  "runtime_errors": 0,
  "timeouts": 0,
  "error_msgs": [],
- "truth": 1,
+ "truth": 0,
  "reported_outcome": 0,
  "false_confirmations": 0,
  "false_alarms": 0,
@@ -20,26 +21,29 @@
  "say_before_action": 1,
  "say_mid": 1,
  "say_after_all": 0,
- "say_mentions_object": 2,
- "say_progress": 1,
- "say_scene": 0,
- "say_intent": 2,
- "say_outcome": 0,
+ "say_objects": 2,
+ "say_progress": 0,
+ "say_environment": 0,
+ "say_intent": 0,
+ "say_confirming": 0,
+ "say_verb": 0,
+ "say_robot_action": 2,
+ "say_error": 0,
  "total_actions": 2,
  "exec_seconds": 2.4,
- "speech_seconds_est": 6.8,
+ "speech_seconds_est": 5.6,
  "silence_seconds_est": 0,
- "longest_silent_gap": 1.3,
+ "longest_silent_gap": 1.8,
  "utterances": [
   {
    "after_actions": 0,
    "t": 0.0,
-   "msg": "Ok - putting the milk in the milk bin"
+   "msg": "Putting the milk in the milk bin"
   },
   {
    "after_actions": 1,
-   "t": 1.2,
-   "msg": "Now putting the cereal in the cereal bin"
+   "t": 0.6,
+   "msg": "Putting the cereal in the cereal bin"
   }
  ]
 }

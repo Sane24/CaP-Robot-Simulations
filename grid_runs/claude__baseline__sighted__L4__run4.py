@@ -6,13 +6,13 @@
 # task=L4
 # run=4
 # scene=['milk', 'bread', 'cereal', 'can', 'milk bin', 'bread bin', 'cereal bin', 'can bin']
-# command=put the milk and the cereal each in its bin.
-# generated=2026-07-28T08:18:11
-# prompt_chars=12520
-# tokens_in=5294 tokens_out=88
-# seconds=2.1
+# command=put the milk and the cereal each in its bin, telling me as you go.
+# generated=2026-08-05T02:47:36
+# prompt_chars=12542
+# tokens_in=5301 tokens_out=75
+# seconds=2.8
 
-matches = {'milk': 'milk bin', 'cereal': 'cereal bin'}
-say('Got it - putting the milk and the cereal each in its bin')
-for first, second in matches.items():
-  put_first_on_second(first, get_obj_pos(second))
+say('Putting the milk in the milk bin')
+put_first_on_second('milk', 'milk bin')
+say('Putting the cereal in the cereal bin')
+put_first_on_second('cereal', 'cereal bin')

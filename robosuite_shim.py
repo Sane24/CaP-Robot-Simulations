@@ -38,7 +38,7 @@ class RoboSuiteTabletop:
         self.bowls = []
         self.last_failure_reason = None
 
-    # low level code
+    # ---- low level ----
     def _body(self, name):
         return NAME_MAP.get(name, name)
 
@@ -91,7 +91,7 @@ class RoboSuiteTabletop:
         for _ in range(n):
             self._step(np.concatenate([np.zeros(6), [grip]]))
 
-    # CaP code
+    # ---- CaP vocabulary ----
     def get_obj_names(self):
         return list(self.blocks)
 
@@ -167,10 +167,11 @@ class RoboSuiteTabletop:
         """Re-randomize the scene WITHOUT tearing down the window."""
         self.env.reset()
         self.transcript = []
+        _snap_initial(self)
         self.last_failure_reason = None
         self._scene_snap = {}
 
-    # checks 
+    # ---- checks ----
     def is_obj_visible(self, name):
         """FRAGILE check: 'occluded' only if another block sits on top of it.
         Cannot tell 'placed correctly' from 'on the table nearby'."""
@@ -185,7 +186,7 @@ class RoboSuiteTabletop:
                 return False
         return True
 
-    # workspace geometry (same convention as the MultiBlock shim:
+    # ---- workspace geometry (same convention as the MultiBlock shim:
     #      top = +x far from the robot, left = -y) ----
     WS = {"x": (-0.13, 0.19), "y": (-0.23, 0.23)}
     TABLE_Z = 0.80
@@ -257,9 +258,27 @@ class RoboSuiteTabletop:
         return "middle"
 
 
+
+def _snap_initial(env):
+    env._initial_pos = {n: tuple(float(v) for v in env.get_obj_pos(n))
+                        for n in env.get_obj_names()}
+
+
+def _get_initial_pos(env, name):
+    """Position of `name` at the START of the run (after the last reset).
+    Needed for relative commands: 'move the red block 5cm to the bottom' is
+    scored against where the block WAS, which the final state alone cannot give.
+    Lazy: snapshots on first access if reset() hasn't stamped one yet."""
+    import numpy as np
+    if not hasattr(env, "_initial_pos"):
+        _snap_initial(env)
+    return np.array(env._initial_pos.get(name, (0.0, 0.0, 0.0)))
+
+
 def build_namespace(env):
+    ns0 = {"get_initial_pos": (lambda n, _e=env: _get_initial_pos(_e, n))}
     from spatial import make_parse_position
-    return {"parse_position": make_parse_position(env),
+    return {**ns0, "parse_position": make_parse_position(env),
             "get_workspace_bounds": env.get_workspace_bounds,
             "get_corner_pos": env.get_corner_pos, "get_side_pos": env.get_side_pos,
             "is_at": env.is_at,

@@ -7,6 +7,7 @@
  "model_id": "claude-opus-4-8",
  "miss": 0,
  "loc": 5,
+ "primitive_calls": 0,
  "syntax_error": 0,
  "runtime_errors": 0,
  "timeouts": 0,
@@ -20,21 +21,24 @@
  "say_before_action": 2,
  "say_mid": 3,
  "say_after_all": 0,
- "say_mentions_object": 4,
- "say_progress": 0,
- "say_scene": 0,
- "say_intent": 5,
- "say_outcome": 0,
+ "say_objects": 4,
+ "say_progress": 1,
+ "say_environment": 0,
+ "say_intent": 0,
+ "say_confirming": 0,
+ "say_verb": 0,
+ "say_robot_action": 5,
+ "say_error": 0,
  "total_actions": 4,
- "exec_seconds": 4.6,
- "speech_seconds_est": 14.8,
+ "exec_seconds": 4.7,
+ "speech_seconds_est": 16.4,
  "silence_seconds_est": 0,
- "longest_silent_gap": 1.5,
+ "longest_silent_gap": 1.9,
  "utterances": [
   {
    "after_actions": 0,
    "t": 0.0,
-   "msg": "Ok - putting every object in its matching bin"
+   "msg": "Ok - putting every object in its matching bin, one at a time"
   },
   {
    "after_actions": 0,
@@ -43,17 +47,17 @@
   },
   {
    "after_actions": 1,
-   "t": 1.2,
+   "t": 1.0,
    "msg": "Putting the bread in the bread bin"
   },
   {
    "after_actions": 2,
-   "t": 2.3,
+   "t": 2.1,
    "msg": "Putting the cereal in the cereal bin"
   },
   {
    "after_actions": 3,
-   "t": 3.1,
+   "t": 2.7,
    "msg": "Putting the can in the can bin"
   }
  ]

@@ -1,10 +1,10 @@
 {
-  "finished": "2026-07-28T12:11:43",
+  "finished": "2026-08-05T03:52:25",
   "models": {
-    "claude": {
+    "claude45": {
       "provider": "anthropic",
-      "model_id": "claude-opus-4-8",
-      "label": "Claude Opus 4.8"
+      "model_id": "claude-opus-4-5",
+      "label": "Claude Opus 4.5"
     }
   },
   "conditions": [
@@ -23,20 +23,30 @@
     "S3",
     "S4",
     "S5",
+    "S6",
+    "S7",
+    "S9",
+    "S10",
+    "S11",
     "L1",
     "L2",
     "L3",
     "L4",
+    "L6",
+    "L7",
+    "L8",
+    "L9",
+    "L10",
     "L5"
   ],
-  "runs": 10,
+  "runs": 5,
   "cells": 500,
-  "generated": 250,
+  "generated": 500,
   "failed": 0,
   "tokens": {
-    "claude": {
-      "input": 1317000,
-      "output": 18051
+    "claude45": {
+      "input": 2021675,
+      "output": 39342
     }
   },
   "cap_prompt_chars": 12341,

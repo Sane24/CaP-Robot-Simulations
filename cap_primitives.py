@@ -35,10 +35,11 @@ def make_primitives(env):
                 if lines else "Nothing has changed.")
 
     def say_progress(step, total, desc=""):
-        env.say(f"Step {step} of {total}" + (f": {desc}" if desc else "") + ".")
+       #env.say(f"Step {step} of {total}" + (f": {desc}" if desc else "") + ".")
+       env.say((f": {desc}" if desc else "") + ".")
 
     def pause_for_verification(seconds=2.0):
-        env.say(f"Pausing {seconds:g}s so you can check by touch. Holding still.")
+        env.say(f"Pausing {seconds:g} seconds so you can check by touch.")
         if hasattr(env, "hold"):
             env.hold(seconds)
         env.say("Resuming.")

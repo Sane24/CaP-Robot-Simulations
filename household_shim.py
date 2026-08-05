@@ -150,10 +150,17 @@ class HouseholdTabletop(_ArmBase):
     def _pos_real(self, real_name):
         return self.env.sim.data.body_xpos[self.env.obj_body_id[real_name]].copy()
 
+    def _present(self, real_name):
+        """Near the table region. NOT just z<2: single-object variants park
+        unused objects at (10,10,~10) with no support, so they FREE-FALL all
+        episode and eventually pass z=2 going down -- a duration-dependent
+        presence bug (an object 'reappeared' after ~6 sim seconds)."""
+        p = self._pos_real(real_name)
+        return abs(p[0]) < 1.0 and abs(p[1]) < 1.0 and 0.3 < p[2] < 2.0
+
     def get_obj_names(self):
-        """only objects actually ON THE TABLE (single-object variants park the
-        rest at ~(10,10,10)); '<name> bin' targets exposed for each."""
-        present = [f for f, r in REAL.items() if self._pos_real(r)[2] < 2.0]
+        """only objects actually ON THE TABLE; '<name> bin' targets for each."""
+        present = [f for f, r in REAL.items() if self._present(r)]
         return present + [f"{f} bin" for f in present]
 
     def get_obj_pos(self, name):
@@ -171,7 +178,7 @@ class HouseholdTabletop(_ArmBase):
         self.last_failure_reason = None
         a = a.replace(" bin", "")
         real = REAL.get(a)
-        if real is None or self._pos_real(real)[2] > 2.0:
+        if real is None or not self._present(real):
             return False
         p = self._pos_real(real)
         tgt = self._pos_real("Visual" + real)          # its assigned slot in bin2
@@ -218,11 +225,9 @@ class HouseholdTabletop(_ArmBase):
         """FRAGILE: an object down inside the walled bin is occluded from above."""
         n = name.replace(" bin", "")
         real = REAL.get(n)
-        if real is None:
+        if real is None or not self._present(real):
             return False
         p = self._pos_real(real)
-        if p[2] > 2.0:
-            return False
         bx, by = self.env.bin2_pos[0], self.env.bin2_pos[1]
         inside_bin2 = (abs(p[0]-bx) < 0.30 and abs(p[1]-by) < 0.30
                        and p[2] < self.env.bin2_pos[2] + 0.10)
@@ -244,6 +249,7 @@ class HouseholdTabletop(_ArmBase):
     def reset(self):
         self.env.reset(); self.transcript = []
         self.last_failure_reason = None
+        _snap_initial(self)
 
 
 class LiftTabletop(_ArmBase):
@@ -321,11 +327,28 @@ class LiftTabletop(_ArmBase):
     def reset(self):
         self.env.reset(); self.transcript = []
         self.peak_z = self._cube()[2]
+        _snap_initial(self)
 
+
+
+def _snap_initial(env):
+    env._initial_pos = {n: tuple(float(v) for v in env.get_obj_pos(n))
+                        for n in env.get_obj_names()}
+
+
+def _get_initial_pos(env, name):
+    """Position at the START of the run. Lazy: snapshots on first access if
+    reset() hasn't stamped one. Needed for relative commands ('move 5cm to the
+    bottom'), which the final state alone cannot score."""
+    import numpy as np
+    if not hasattr(env, "_initial_pos"):
+        _snap_initial(env)
+    return np.array(env._initial_pos.get(name, (0.0, 0.0, 0.0)))
 
 def build_namespace(env):
     from spatial import make_parse_position
-    ns = {"parse_position": make_parse_position(env),
+    ns = {"get_initial_pos": (lambda n, _e=env: _get_initial_pos(_e, n)),
+          "parse_position": make_parse_position(env),
           "get_workspace_bounds": env.get_workspace_bounds,
           "get_corner_pos": env.get_corner_pos, "get_side_pos": env.get_side_pos,
           "is_at": env.is_at,

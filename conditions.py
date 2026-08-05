@@ -3,10 +3,10 @@ conditions.py -- THE experiment axes: control profiles x policy conditions.
 Single source of truth; live_demo, live_session, and the experiment runner all
 import from here so the strings cannot drift between scripts.
 
-DESIGN:
+DESIGN (and the small choices, explained):
 
 PROFILES: a 2x2 (identity: blind/sighted x assist instruction: absent/present)
-plus a no-prompt control. The assist sentence is same across identities,
+plus a no-prompt control. The assist sentence is IDENTICAL across identities,
 so the design isolates (a) the identity effect, (b) the instruction effect,
 and (c) their interaction. Exact strings fixed at the 7/14 meeting.
 
@@ -29,9 +29,12 @@ families; a block-only vocabulary would handicap the condition on household
 and lift tasks.
 """
 
-# control profiles (2x2 + control)
+# ---------------- control profiles (2x2 + control) ----------------
 _CARRIER = "User profile: {}\n"
 
+# NOTE: the no-prompt profile is named "empty", NOT "baseline", so it can never
+# be confused with the baseline CONDITION. get_profile("baseline") still works
+# as an alias for old scripts/files.
 PROFILES = {
     "empty":          "",
     "blind":          _CARRIER.format("The user is blind."),
@@ -42,14 +45,13 @@ PROFILES = {
         "The user is sighted. Assist them in understanding what happens."),
 }
 
-# policy conditions 
+# policy conditions
 INSTRUCTIONS_TEXT = (
     "Rules:\n"
     "- Before acting, only say what you are about to do.\n"
     "- After each action, check the actual state and report whether it actually succeeded.\n"
     "- Never claim an action succeeded unless you verified it against the scene.\n"
-    "- If an object is not present, say so instead of acting.\n"
-    "- Stay quiet during the grasp itself.\n"
+    "- Report the outcome in case of failure.\n"
 )
 
 PRIMITIVES_TEXT = """Communication rules:
@@ -61,13 +63,16 @@ PRIMITIVES_TEXT = """Communication rules:
 - After an action the user may want to check, call pause_for_verification().
 
 from comms_utils import say_verified, confirm_before, describe_scene, say_progress, pause_for_verification
-from env_utils import is_placed, is_at, is_in_bin, was_lifted
+from env_utils import (is_placed, is_at, is_in_bin, was_lifted,
+                       is_in_bowl, is_on_plate)
 
 # Ground-truth checks (use whichever the scene provides):
-#   is_placed(a, b)   -> a is stacked on b
-#   is_at(a, [x, y])  -> a is at that position
-#   is_in_bin(obj)    -> obj is inside its target bin
-#   was_lifted(obj)   -> obj rose above the table during execution
+#   is_placed(a, b)        -> a is stacked on b, or a is at position b
+#   is_at(a, [x, y])       -> a is at that position
+#   is_in_bin(obj)         -> obj is inside its target bin
+#   was_lifted(obj)        -> obj rose above the table during execution
+#   is_in_bowl(obj, bowl)  -> obj is inside that bowl (omit bowl for any)
+#   is_on_plate(obj, plate)-> obj is resting on that plate (omit for any)
 
 objects = ['red block', 'green block']
 # put the red block on the green block
@@ -94,6 +99,14 @@ for i, obj in enumerate(objs):
     put_first_on_second(obj, f'{obj} bin')
     say_verified(lambda o=obj: is_in_bin(o),
                  f'The {obj} is in its bin.', f'The {obj} did not end up in its bin.')
+
+objects = ['red block', 'green block', 'blue block', 'red bowl', 'green bowl', 'blue bowl']
+# put the red block in the green bowl
+confirm_before('put the red block in the green bowl')
+put_first_on_second('red block', 'green bowl')
+say_verified(lambda: is_in_bowl('red block', 'green bowl'),
+             'The red block is in the green bowl.',
+             'The red block did not end up in the green bowl.')
 
 objects = ['red block', 'green block']
 # where is everything?

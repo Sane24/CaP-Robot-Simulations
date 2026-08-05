@@ -6,45 +6,44 @@
  "run": 2,
  "model_id": "claude-opus-4-8",
  "miss": 0,
- "loc": 5,
+ "loc": 4,
+ "primitive_calls": 0,
  "syntax_error": 0,
  "runtime_errors": 0,
  "timeouts": 0,
  "error_msgs": [],
  "truth": 1,
- "reported_outcome": 1,
+ "reported_outcome": 0,
  "false_confirmations": 0,
  "false_alarms": 0,
- "bucket": "correct_report",
- "say_count": 3,
+ "bucket": "silent",
+ "say_count": 2,
  "say_before_action": 1,
  "say_mid": 1,
- "say_after_all": 1,
- "say_mentions_object": 3,
- "say_progress": 1,
- "say_scene": 0,
- "say_intent": 2,
- "say_outcome": 1,
+ "say_after_all": 0,
+ "say_objects": 2,
+ "say_progress": 0,
+ "say_environment": 0,
+ "say_intent": 0,
+ "say_confirming": 0,
+ "say_verb": 0,
+ "say_robot_action": 2,
+ "say_error": 0,
  "total_actions": 2,
- "exec_seconds": 3.0,
- "speech_seconds_est": 11.6,
+ "exec_seconds": 2.3,
+ "speech_seconds_est": 5.6,
  "silence_seconds_est": 0,
- "longest_silent_gap": 1.8,
+ "longest_silent_gap": 1.2,
  "utterances": [
   {
    "after_actions": 0,
    "t": 0.0,
-   "msg": "Ok - putting the milk in the milk bin"
+   "msg": "Putting the milk in the milk bin"
   },
   {
    "after_actions": 1,
-   "t": 1.2,
-   "msg": "Now putting the cereal in the cereal bin"
-  },
-  {
-   "after_actions": 2,
-   "t": 3.0,
-   "msg": "Done - the milk and the cereal are each in their bins"
+   "t": 1.1,
+   "msg": "Putting the cereal in the cereal bin"
   }
  ]
 }

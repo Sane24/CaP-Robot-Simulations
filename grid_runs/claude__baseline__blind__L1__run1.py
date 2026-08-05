@@ -7,13 +7,13 @@
 # run=1
 # scene=['milk', 'bread', 'cereal', 'can', 'milk bin', 'bread bin', 'cereal bin', 'can bin']
 # command=put every object in its matching bin, one at a time.
-# generated=2026-07-28T09:13:51
+# generated=2026-08-05T02:42:35
 # prompt_chars=12526
-# tokens_in=5293 tokens_out=128
-# seconds=2.5
+# tokens_in=5293 tokens_out=121
+# seconds=2.0
 
-say('Ok - putting every object in its matching bin')
+say('Ok - putting every object in its matching bin, one at a time')
 matches = {'milk': 'milk bin', 'bread': 'bread bin', 'cereal': 'cereal bin', 'can': 'can bin'}
-for obj, bin_name in matches.items():
-  say(f'Putting the {obj} in the {bin_name}')
-  put_first_on_second(obj, bin_name)
+for first, second in matches.items():
+  say(f'Putting the {first} in the {second}')
+  put_first_on_second(first, second)

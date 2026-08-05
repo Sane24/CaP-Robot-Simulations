@@ -7,13 +7,13 @@
 # run=2
 # scene=['red block', 'green block', 'blue block', 'yellow block']
 # command=put the blocks on different corners clockwise starting at the top right corner.
-# generated=2026-07-28T09:28:26
+# generated=2026-08-05T02:44:45
 # prompt_chars=12527
 # tokens_in=5275 tokens_out=125
-# seconds=2.2
+# seconds=2.8
 
-say('Ok - putting the blocks on different corners clockwise starting at the top right corner')
+say('Ok - placing the blocks on different corners clockwise starting from the top right corner')
 block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
-corners = parse_position('the corners clockwise starting at the top right corner')
+corners = parse_position('the corners clockwise starting from the top right corner')
 for block_name, pos in zip(block_names, corners):
   put_first_on_second(block_name, pos)

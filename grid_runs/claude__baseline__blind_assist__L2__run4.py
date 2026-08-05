@@ -7,11 +7,11 @@
 # run=4
 # scene=['red block', 'green block', 'blue block', 'yellow block']
 # command=stack all the blocks into one tower.
-# generated=2026-07-28T08:19:01
+# generated=2026-08-05T02:51:36
 # prompt_chars=12527
-# tokens_in=5277 tokens_out=73
+# tokens_in=5277 tokens_out=80
 # seconds=1.9
 
+order_bottom_to_top = ['red block', 'green block', 'blue block', 'yellow block']
 say('Ok - stacking all the blocks into one tower')
-block_names = parse_obj_name('the blocks', f'objects = {get_obj_names()}')
-stack_objects_in_order(object_names=block_names)
+stack_objects_in_order(object_names=order_bottom_to_top)

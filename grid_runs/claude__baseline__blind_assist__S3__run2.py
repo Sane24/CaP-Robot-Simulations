@@ -7,13 +7,9 @@
 # run=2
 # scene=['red block', 'green block']
 # command=put the red block on the purple block.
-# generated=2026-07-28T09:28:59
+# generated=2026-08-05T02:49:45
 # prompt_chars=12499
-# tokens_in=5262 tokens_out=78
-# seconds=2.4
+# tokens_in=5262 tokens_out=23
+# seconds=1.8
 
-if is_obj_visible('purple block'):
-  say('Putting the red block on the purple block')
-  put_first_on_second('red block', 'purple block')
-else:
-  say('I don\'t see a purple block, so I can\'t do that')
+say('There is no purple block, so I cannot put the red block on it')
