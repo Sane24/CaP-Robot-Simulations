@@ -128,9 +128,7 @@ Communication primitives. Five functions in the policy namespace:
 
 The check lives inside the primitive. In simulation the check is ground truth. On a real robot the same slot takes a VLM verifier.
 
-Prediction, written before analysis: instructions raise reporting and introduce false confirmations; primitives raise reporting without them. The number to watch is claim accuracy.
-
-Standing caveat: the primitives result is correct by construction, because say_verified calls the same check the scorer does. The honest claim is that primitives remove the choice of check, not that they are automatically accurate. 
+Note: the primitives result is correct by construction, because say_verified calls the same check the scorer does. The honest claim is that primitives remove the choice of check, not that they are automatically accurate. 
 
 ## 6. Discussion
 
