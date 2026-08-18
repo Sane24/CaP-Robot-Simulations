@@ -171,7 +171,7 @@ Note: the primitives result is correct by construction, because say_verified cal
 
 Baseline CaP is unsafe for non-visual use by silence, not by lying. The false-confirmation rate is 2% of attempted failures; the silence rate is 98%. That distinction matters for the fix: this is not a hallucination problem to be suppressed, it is a missing feedback loop to be built.
 
-The mechanism is visible in the discourse structure. Everything the model knows a priori, it says up front: the plan, a missing object, occasionally a missing capability. Nothing that requires looking at the world after acting is ever said, because nothing in the pipeline looks. say() is generated with the rest of the code, before execution, and prints whatever was written there.
+Everything the model knows a priori, it says up front: the intent/plan, missing object, missing capability - things that can be checked before any action. And nothing that requires looking at the world after acting is ever said, because nothing in the pipeline looks. say() is generated with the rest of the code, before execution, and prints whatever was written there.
 
 Accessibility prompting does not create verification, it only adds assertion. The blind and assist profiles added a handful of trailing outcome claims with no check behind them, and half were wrong. Whatever the three-condition study shows, this baseline result already argues that user modeling without grounding moves risk toward the user it means to help.
 
