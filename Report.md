@@ -165,8 +165,6 @@ Communication primitives. Five functions in the policy namespace:
 
 The check lives inside the primitive. In simulation the check is ground truth. On a real robot the same slot takes a VLM verifier.
 
-Prediction, written before analysis: instructions raise reporting and introduce false confirmations; primitives raise reporting without them. The number to watch is claim accuracy.
-
 Note: the primitives result is correct by construction, because say_verified calls the same check the scorer does. The honest claim is that primitives remove the choice of check, not that they are automatically accurate. A noisy-check variant (is_placed_noisy) is planned to break that circularity.
 
 ## 7. Discussion
@@ -186,7 +184,7 @@ Ground-truth checks share code with the scorer (the by-construction caveat above
 
 Separate tasks cleanly into only baseline and apply the same modifications for every task.
 
-Analyze the three-condition grid vs baseline. Powered re-run of the tail event. Opus 4.5 vs 4.8 under the controlled pipeline, and a re-check of the earlier "verification adoption is model-independent" claim. is_placed_noisy.
+Analyze the three-condition grid vs baseline. Powered re-run of the tail event. Opus 4.5 vs 4.8 under the controlled pipeline, and a re-check of the earlier "verification adoption is model-independent" claim. 
 
 VLM-based verification from camera frames so the primitives work outside simulation. Messages built from verified state rather than free text beside a check.
 
