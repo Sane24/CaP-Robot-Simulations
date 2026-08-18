@@ -142,7 +142,7 @@ Accessibility prompting does not create verification. It creates assertion. The 
 
 ## 7. Limitations
 
-Simulation only, one robot, tabletop scenes. Ground-truth checks share code with the scorer (the by-construction caveat above). Most data is from one model family, with the version comparison pending. The tail event is n=7. L4 deliberately carries a narration instruction and is analyzed separately, but it is in the task set. The two S2 exports disagree and are unresolved. L7 needs a post-fix re-run.
+Simulation only, one robot, tabletop scenes. Ground-truth checks share code with the scorer (the by-construction caveat above). Most data is from one model family, with the version comparison pending. The tail event is n=7. L4 deliberately carries a narration instruction and is analyzed separately, but it is in the task set.
 
 ## 8. Future work
 
