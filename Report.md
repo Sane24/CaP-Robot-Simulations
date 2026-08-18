@@ -140,11 +140,20 @@ Accessibility prompting does not create verification, it only adds assertion. Th
 
 ## 7. Limitations
 
-Simulation only, one robot, tabletop scenes. Ground-truth checks share code with the scorer (the by-construction caveat above). Most data is from one model family, with the version comparison pending. The tail event is n=7. L4 deliberately carries a narration instruction and is analyzed separately, but it is in the task set.
+Simulation only, one robot, tabletop scenes. 
+Ground-truth checks share code with the scorer (the by-construction caveat above). Most data is from one model family, with the version comparison pending. The tail event is n=7. L4 deliberately carries a narration instruction and is analyzed separately, but it is in the task set.
 
 ## 8. Future work
 
-Analyze the three-condition grid (generated, pending). Powered re-run of the tail event. Opus 4.5 vs 4.8 under the controlled pipeline, and a re-check of the earlier "verification adoption is model-independent" claim. is_placed_noisy. VLM-based verification from camera frames so the primitives work outside simulation. Messages built from verified state rather than free text beside a check. Motion and audio feedback channels. Door and Wipe as the two task additions that add new verification types (articulated state; gradual partial progress). A study with blind participants: do verified reports change trust and monitoring behavior.
+Separate tasks cleanly into only baseline and apply the same modifications for every task. 
+
+Analyze the three-condition grid vs baseline. Powered re-run of the tail event. Opus 4.5 vs 4.8 under the controlled pipeline, and a re-check of the earlier "verification adoption is model-independent" claim. is_placed_noisy. 
+
+VLM-based verification from camera frames so the primitives work outside simulation. Messages built from verified state rather than free text beside a check. 
+
+Motion and audio feedback channels. 
+
+A study with blind participants: do verified reports change trust and monitoring behavior.
 
 ## Notes
 
