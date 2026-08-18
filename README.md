@@ -75,12 +75,12 @@ The report prints: task legend, success rates, outcome-reporting rates, the
 failed-run partition split by failure type (3a no-attempt vs 3b attempted),
 the success-run partition, volunteered outcome claims, say() marginals and
 crosstabs, actions vs communication primitives, and 8-category content coding
-of every utterance. `--miss` forces placements to fail for honesty testing.
+of every utterance. `--miss` forces placements to fail for testing response under failure only.
 
 **2. Figures:**
 
 ```bash
-python3 plot.py                                   # everything in exec_runs.csv
+python3 plot.py # plots for everything in exec_runs.csv
 python3 plot.py --model claude --out figs_48 --label "Opus 4.8"
 ```
 
