@@ -93,7 +93,7 @@ say() per run is 1.2 ± 0.8 overall, and exactly 1.0 with zero variance on most 
 
 ### 4.4 What the robot actually says: open coding
 
-We coded all 642 utterances. Only 115 distinct strings, which made full manual coding tractable. Four mutually exclusive speech acts:
+Of 642 utterances, only 115 distinct strings, which made full manual coding tractable. Four mutually exclusive speech acts:
 
 - announce_intent, 88%. "Putting the red block on the green block." A restatement of the command, spoken before acting.
 - claim_completion, 7%. The only speech act that ever occurs after an action.
@@ -104,37 +104,21 @@ The dimension that matters is verifiability. An intent announcement is true no m
 
 The act-by-timing table is nearly deterministic: refusals and absence reports are 100% pre-action, intent is 86% pre-action, and completion claims are the only post-action speech. The discourse structure is announce, act, stop.
 
-### 4.5 Capability awareness is inconsistent
-
-S2 was designed as a capability probe, and it behaves like one, but not uniformly. Only 24% of S2 utterances are refusals ("I can only move objects on the table, I cannot lift them"). The other 76% confidently announce "lifting the cube above the table" and then execute zero actions. The model's refusal, when it comes, is correct reasoning about its own API. Most runs never do that reasoning.
-
-One scorer caveat we keep on the record: S2's ground truth (was_lifted) tests peak height during execution, which any ordinary placement satisfies in transit. A policy that shoved the cube sideways would pass. No policy did, because the model either refuses or writes a lift it cannot express, but the truth function measures "noticed the constraint," not "lifted," and the writeup says so.
-
-### 4.6 Broken sentences can reach the user
+### 4.5 Broken sentences can reach the user
 
 8% of utterances end mid-reference: "Putting the red block to the left of the ". All from two tasks, and traced to an f-string whose variable resolved empty when a perception call returned nothing. The message text is assembled beside the check, not from it, so nothing catches a missing referent. This is one evidence for the claim/reference gap that motivates building messages from verified state, and it doubles as a user-facing symptom of a harness gap we then fixed.
 
-### 4.8 A model-version observation
+### 4.6 A model-version observation
 
-Live demos looked chattier than the grid. The cause was two uncontrolled variables in the demo tool: a hardcoded older model id (Opus 4.5) and a live-fetched prompt. Opus 4.5 narrates loops where 4.8 does not. After unifying both paths we kept the observation as a candidate finding: spontaneous narration is model-version dependent, which is itself an argument that emergent communication cannot be relied on. A controlled 4.5 vs 4.8 comparison is running.
+Live demos looked chattier than the grid. The cause was two uncontrolled variables in the demo tool: a hardcoded older model id (Opus 4.5) and a live-fetched prompt. Opus 4.5 narrates loops where 4.8 does not. After unifying both paths we kept the observation as a candidate finding: spontaneous narration is model-version dependent, which can itself be an argument that emergent communication cannot be relied on. A controlled 4.5 vs 4.8 comparison is planned as well.
 
-## 5. Harness validation
-
-Eleven bugs were found and fixed during the project, and several were manufacturing findings. The pattern worth recording: in this experiment, harness gaps do not look like crashes. They look like results.
-
-The worst class: missing CaP vocabulary. CaP's own prompt demonstrates parse_position, parse_obj_name on groups, and transform_shape_pts. Any of these missing makes a correct policy crash or no-op, and the trailing say() then scores as a false confirmation, or the empty loop scores as a silent failure. parse_obj_name returning an empty string for "the bowls" produced a silent no-op with no exception, invisible in error counts, across three tasks. A model whose output format we under-parsed (Gemini, 33% of policies) scored as catastrophically uncommunicative when its policies had simply never run.
-
-Other fixes: an action counter that classified rejected no-motion calls as attempts, a presence filter that let parked objects free-fall back into the scene, a pose read before objects finished settling that aimed grasps above a rolling lemon, and a materials bug that rendered every "colored" block gray (demo-only; headless data carries semantics in names).
-
-Every number in section 4 postdates the fixes it depends on. Two items remain open: an unresolved discrepancy between two S2 exports that came from different executions (re-export both from one grid_exec state before citing either), and one task (L7) at 0/25 success that needs a post-fix re-run to separate a real model failure from the parse bug.
-
-## 6. Proposed solution
+## 5. Proposed solution
 
 Two ways to add the missing feedback loop, run as prompt conditions against the same 20 tasks and 5 profiles.
 
 Prompted instructions. Rules in the prompt: verify after acting, report the outcome. From the pilot we already know the failure mode: the model chooses its own check, and the choice is a lottery.
 
-Communication primitives, ours. Five functions in the policy namespace:
+Communication primitives. Five functions in the policy namespace:
 
 - say_verified(check, success_msg, failure_msg): speaks only after running the check
 - say_progress(i, n, msg): grounded step narration
@@ -146,9 +130,9 @@ The check lives inside the primitive. In simulation the check is ground truth. O
 
 Prediction, written before analysis: instructions raise reporting and introduce false confirmations; primitives raise reporting without them. The number to watch is claim accuracy.
 
-Standing caveat: the primitives result is correct by construction, because say_verified calls the same check the scorer does. The honest claim is that primitives remove the choice of check, not that they are magically accurate. A noisy-check variant (is_placed_noisy) is planned to break that circularity before submission.
+Standing caveat: the primitives result is correct by construction, because say_verified calls the same check the scorer does. The honest claim is that primitives remove the choice of check, not that they are automatically accurate. 
 
-## 7. Discussion
+## 6. Discussion
 
 Baseline CaP is unsafe for non-visual use by silence, not by lying. The false-confirmation rate is 2% of attempted failures; the silence rate is 98%. That distinction matters for the fix: this is not a hallucination problem to be suppressed, it is a missing feedback loop to be built.
 
@@ -156,13 +140,11 @@ The mechanism is visible in the discourse structure. Everything the model knows 
 
 Accessibility prompting does not create verification. It creates assertion. The blind and assist profiles added a handful of trailing outcome claims with no check behind them, and half were wrong. Whatever the three-condition study shows, this baseline result already argues that user modeling without grounding moves risk toward the user it means to help.
 
-Finally, the harness work is a result in its own right. Measuring communication honestly required making the robot's failures real (natural grasp variance, designed impossible tasks) and making the environment complete enough that correct policies do not fail for our reasons. We think any group attempting this class of evaluation will hit the same trap: the artifact failures look exactly like findings.
-
-## 8. Limitations
+## 7. Limitations
 
 Simulation only, one robot, tabletop scenes. Ground-truth checks share code with the scorer (the by-construction caveat above). Most data is from one model family, with the version comparison pending. The tail event is n=7. L4 deliberately carries a narration instruction and is analyzed separately, but it is in the task set. The two S2 exports disagree and are unresolved. L7 needs a post-fix re-run.
 
-## 9. Future work
+## 8. Future work
 
 Analyze the three-condition grid (generated, pending). Powered re-run of the tail event. Opus 4.5 vs 4.8 under the controlled pipeline, and a re-check of the earlier "verification adoption is model-independent" claim. is_placed_noisy. VLM-based verification from camera frames so the primitives work outside simulation. Messages built from verified state rather than free text beside a check. Motion and audio feedback channels. Door and Wipe as the two task additions that add new verification types (articulated state; gradual partial progress). A study with blind participants: do verified reports change trust and monitoring behavior.
 
