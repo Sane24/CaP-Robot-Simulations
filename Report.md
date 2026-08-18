@@ -175,6 +175,8 @@ Everything the model knows a priori, it says up front: the intent/plan, missing 
 
 Accessibility prompting does not create verification either, it only adds assertion. The blind and assist profiles added a handful of trailing outcome claims with no check behind them, and half were wrong. Whatever the three-condition study shows, this baseline result already argues that user modeling without grounding moves risk toward the user it means to help.
 
+Personalizing communication to the user is required with adding communication because different users need and want different levels and times of communication and verbosity,
+
 ## 8. Limitations
 
 Simulation only, one robot, tabletop scenes.
@@ -186,7 +188,7 @@ Separate tasks cleanly into only baseline and apply the same modifications for e
 
 Analyze the three-condition grid vs baseline. Powered re-run of the tail event. Opus 4.5 vs 4.8 under the controlled pipeline, and a re-check of the earlier "verification adoption is model-independent" claim. 
 
-VLM-based verification from camera frames so the primitives work outside simulation. Messages built from verified state rather than free text beside a check.
+VLM-based verification from camera frames so the primitives work outside simulation, with messages built from verified state rather than free text beside a check.
 
 Motion and audio feedback channels.
 
