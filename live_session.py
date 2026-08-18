@@ -9,7 +9,7 @@ and the robot SPEAKS its narration out loud (macOS `say`).
   python3  live_session.py --no-render        # voice only, no window
 
 At the prompt:
-  run primitives blind T1            generate + execute (condition, profile, task)
+  run primitives blind L10            generate + execute (condition, profile, task)
   run promptbook blind T1 miss       same, but force the placement to fail
   run baseline sighted T5
   say hello there                    make the robot speak a line (test the voice)
