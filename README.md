@@ -1,8 +1,9 @@
 # Communication-Aware Robot Policies - RoboSuite Simulations
 
+Research: How can a robot narrate its work so a blind user can monitor it without watching it?
 Does a Code-as-Policies robot tell a blind user what actually happened?
-Generate robot policies with LLMs, execute them on a simulated arm, and score
-every spoken claim against simulator ground truth.
+
+This github repo is for running robosuite simulations to answer these research questions, generate robot policies with LLMs, execute them on a simulated arm, and score every spoken claim against simulator ground truth.
 
 ## Setup
 
@@ -22,7 +23,6 @@ python3 -c "import tasks; e,_ = tasks.make_env('S1'); print(e.get_obj_names()); 
 
 ## Experiment axes
 
-Single source of truth for every axis. Nothing else hardcodes an axis value.
 
 - **`tasks.py`** - the 20 tasks (10 short `S1-S11`, 10 long `L1-L10`; S8
   removed to balance). Each entry: command, env factory, ground-truth check,
@@ -31,17 +31,17 @@ Single source of truth for every axis. Nothing else hardcodes an axis value.
   every scorer. 16 of 20 commands are verbatim from RoboSuite envs or CaP's
   demo command list; the 4 authored ones (S2, S3, L4, L9) exist to make
   failure observable and are documented in their `source` fields.
+
 - **`conditions.py`** - 5 user profiles (`empty` / `blind` / `sighted` /
   `blind_assist` / `sighted_assist`) x 3 policy conditions:
   `baseline` (nothing), `instructions` (plain-language verify-and-report
   rules), `predefined_primitives` (communication primitives with the check
   built in; the prompt text lists every check the scenes support, including
   `is_in_bowl` and `is_on_plate`).
+
 - **`models.py`** - pinned model ids behind short keys (`claude`, `openai`,
-  `gemini`). `python3 models.py --list` shows ids, `--ping` round-trips each
-  provider. To compare model versions, add a second key (e.g. `claude45`) so
-  cached filenames differ; never repoint an existing key at a new id, the
-  cache will silently mix versions.
+  `gemini`). `python3 models.py --list` shows ids. To compare model versions, add a second key (e.g. `claude45`) so cached filenames differ; do not repoint an existing key at a new id or the
+  cache will mix versions.
 
 ## Pipeline
 
@@ -99,7 +99,7 @@ Codes every utterance with a mutually exclusive 4-act scheme
 (announce_intent / claim_completion / report_absence / refusal_capability),
 a verifiability dimension (can this sentence be wrong?), and surface features.
 Writes `says_coded.csv`, a 115-row `says_distinct.csv` worksheet for manual
-recoding, `codebook.md`, and 4 figures.
+recoding, and 4 figures.
 
 **4. The three-condition comparison:**
 

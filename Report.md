@@ -173,7 +173,7 @@ Baseline CaP is unsafe for non-visual use by silence, not by lying. The false-co
 
 Everything the model knows a priori, it says up front: the intent/plan, missing object, missing capability - things that can be checked before any action. And nothing that requires looking at the world after acting is ever said, because nothing in the pipeline looks. say() is generated with the rest of the code, before execution, and prints whatever was written there.
 
-Accessibility prompting does not create verification, it only adds assertion. The blind and assist profiles added a handful of trailing outcome claims with no check behind them, and half were wrong. Whatever the three-condition study shows, this baseline result already argues that user modeling without grounding moves risk toward the user it means to help.
+Accessibility prompting does not create verification either, it only adds assertion. The blind and assist profiles added a handful of trailing outcome claims with no check behind them, and half were wrong. Whatever the three-condition study shows, this baseline result already argues that user modeling without grounding moves risk toward the user it means to help.
 
 ## 8. Limitations
 
